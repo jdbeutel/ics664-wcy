@@ -18,5 +18,6 @@ class SettingsTests extends GrailsUnitTestCase {
     }
 
     void testSomething() {
+        new Settings()
     }
 }
