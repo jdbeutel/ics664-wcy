@@ -18,7 +18,5 @@ class SettingsControllerTests extends ControllerUnitTestCase {
     }
 
     void testHelloWorld() {
-        controller.index()
-        assertEquals "Hello Grails world!", controller.response.contentAsString
     }
 }
