@@ -6,6 +6,8 @@
 
 package com.getsu.wcy
 
+import java.text.SimpleDateFormat
+
 class WcyTagLib {
 
     static namespace='wcy'
@@ -25,19 +27,43 @@ class WcyTagLib {
     def timeZoneSelect = {attrs ->
         attrs['from'] = VALID_TIME_ZONES.ID
         attrs['value'] = (attrs['value'] ? attrs['value'].ID : TimeZone.getDefault().ID)
-        def now = new Date()
 
         // set the option value as a closure that formats the TimeZone for display
+        attrs['optionValue'] = { formatTimeZone(TimeZone.getTimeZone(it)) }
+
+        // use generic select
+        out << g.select(attrs)
+    }
+
+    def formatTimeZone = { TimeZone tz ->
+        def now = new Date()
+        def shortName = tz.getDisplayName(tz.inDaylightTime(now), TimeZone.SHORT)
+        def longName = tz.getDisplayName(tz.inDaylightTime(now), TimeZone.LONG)
+
+        def offset = tz.rawOffset
+        int hour = offset / (60 * 60 * 1000)
+        String min = String.valueOf((int) Math.abs(offset / (60 * 1000)) % 60).padRight(2, '0')
+
+        return "${shortName} (${tz.ID}), ${longName} ${hour}:${min}"
+    }
+
+    private static VALID_DATE_FORMATS = [
+            'MM/dd/yyyy h:mm a', 'yyyy-MM-dd HH:mm', 'yyyy-MM-dd HH:mm z'
+    ]
+
+    /**
+     *  A dateFormatSelect tag.
+     * eg. <wcy:timeZoneSelect name="myTimeZone" value="${tz}" />
+     */
+    def dateFormatSelect = {attrs ->
+        attrs['from'] = VALID_DATE_FORMATS
+        attrs['value'] = (attrs['value'] ?: VALID_DATE_FORMATS[0])
+        def now = new Date()
+
+        // set the option value as a closure that formats the DateFormat for display
         attrs['optionValue'] = {
-            TimeZone tz = TimeZone.getTimeZone(it);
-            def shortName = tz.getDisplayName(tz.inDaylightTime(now), TimeZone.SHORT);
-            def longName = tz.getDisplayName(tz.inDaylightTime(now), TimeZone.LONG);
-
-            def offset = tz.rawOffset;
-            int hour = offset / (60 * 60 * 1000);
-            String min = String.valueOf((int) Math.abs(offset / (60 * 1000)) % 60).padRight(2, '0');
-
-            return "${shortName} (${tz.ID}), ${longName} ${hour}:${min}"
+            def example = new SimpleDateFormat(it).format(now)
+            return "${it}  -- e.g., ${example}"
         }
 
         // use generic select

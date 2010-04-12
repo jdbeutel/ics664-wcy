@@ -49,7 +49,7 @@
                                   <label for="dateFormat"><g:message code="settings.dateFormat.label" default="Date Format" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: settingsInstance, field: 'dateFormat', 'errors')}">
-                                    
+                                    <wcy:dateFormatSelect name="dateFormat" value="${settingsInstance?.dateFormat}"  />
                                 </td>
                             </tr>
                         
