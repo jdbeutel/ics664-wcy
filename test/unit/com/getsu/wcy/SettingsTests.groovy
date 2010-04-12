@@ -4,11 +4,11 @@
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  */
 
-package com.getsu
+package com.getsu.wcy
 
 import grails.test.*
 
-class SettingsControllerTests extends ControllerUnitTestCase {
+class SettingsTests extends GrailsUnitTestCase {
     protected void setUp() {
         super.setUp()
     }
@@ -17,6 +17,7 @@ class SettingsControllerTests extends ControllerUnitTestCase {
         super.tearDown()
     }
 
-    void testHelloWorld() {
+    void testSomething() {
+
     }
 }
