@@ -6,7 +6,13 @@
 
 package com.getsu
 
-class SettingsController {
+import java.text.SimpleDateFormat
 
-    def scaffold = Settings
+class Settings {
+
+    static constraints = {
+    }
+
+    SimpleDateFormat dateFormat
+    TimeZone timeZone
 }
