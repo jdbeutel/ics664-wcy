@@ -15,10 +15,10 @@ class WcyTagLib {
     private static VALID_TIME_ZONES = TimeZone.availableIDs.toList().grep(~/US\/.*/).collect {
         TimeZone.getTimeZone(it)
     }.unique().sort {it.rawOffset}
-    static {
-        def dtz = TimeZone.default
-        assert VALID_TIME_ZONES.contains(dtz)
-    }
+//    static {
+//        def dtz = TimeZone.default
+//        assert VALID_TIME_ZONES.contains(dtz)
+//    }
 
     /**
      *  A timeZoneSelect tag with limited options.
