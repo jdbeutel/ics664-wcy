@@ -3,4 +3,5 @@ stacktrace.log
 /test/reports
 #/web-app/WEB-INF
 /out
+/target
 *.war
