@@ -35,7 +35,7 @@ class WcyTagLib {
         out << g.select(attrs)
     }
 
-    def formatTimeZone = { TimeZone tz ->
+    def formatTimeZone = {TimeZone tz ->
         def now = new Date()
         def shortName = tz.getDisplayName(tz.inDaylightTime(now), TimeZone.SHORT)
         def longName = tz.getDisplayName(tz.inDaylightTime(now), TimeZone.LONG)
@@ -58,15 +58,16 @@ class WcyTagLib {
     def dateFormatSelect = {attrs ->
         attrs['from'] = VALID_DATE_FORMATS
         attrs['value'] = (attrs['value'] ?: VALID_DATE_FORMATS[0])
-        def now = new Date()
 
         // set the option value as a closure that formats the DateFormat for display
-        attrs['optionValue'] = {
-            def example = new SimpleDateFormat(it).format(now)
-            return "${it}  -- e.g., ${example}"
-        }
+        attrs['optionValue'] = { formatDateFormat(new SimpleDateFormat(it)) }
 
         // use generic select
         out << g.select(attrs)
+    }
+
+    def formatDateFormat = {SimpleDateFormat df ->
+        def now = new Date()
+        "${df.toPattern()}  -- e.g., ${df.format(now)}"
     }
 }

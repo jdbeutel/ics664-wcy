@@ -37,14 +37,14 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="settings.timeZone.label" default="Time Zone" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: settingsInstance, field: "timeZone")}</td>
+                            <td valign="top" class="value">${wcy.formatTimeZone(settingsInstance.timeZone)}</td>
                             
                         </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="settings.dateFormat.label" default="Date Format" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: settingsInstance, field: "dateFormat")}</td>
+                            <td valign="top" class="value">${wcy.formatDateFormat(settingsInstance.dateFormat)}</td>
                             
                         </tr>
                     

@@ -41,9 +41,9 @@
                         
                             <td><g:link action="show" id="${settingsInstance.id}">${fieldValue(bean: settingsInstance, field: "id")}</g:link></td>
                         
-                            <td>${fieldValue(bean: settingsInstance, field: "timeZone")}</td>
+                            <td>${wcy.formatTimeZone(settingsInstance.timeZone)}</td>
                         
-                            <td>${fieldValue(bean: settingsInstance, field: "dateFormat")}</td>
+                            <td>${wcy.formatDateFormat(settingsInstance.dateFormat)}</td>
                         
                         </tr>
                     </g:each>
