@@ -15,6 +15,7 @@ class WcyTagLib {
     private static VALID_TIME_ZONES = TimeZone.availableIDs.toList().grep(~/US\/.*/).collect {
         TimeZone.getTimeZone(it)
     }.unique().sort {it.rawOffset}
+// sometimes this prevents start-up
 //    static {
 //        def dtz = TimeZone.default
 //        assert VALID_TIME_ZONES.contains(dtz)
@@ -48,7 +49,12 @@ class WcyTagLib {
     }
 
     private static VALID_DATE_FORMATS = [
-            'MM/dd/yyyy h:mm a', 'yyyy-MM-dd HH:mm', 'yyyy-MM-dd HH:mm z'
+            'MM/dd/yyyy h:mm a',
+            'yyyy-MM-dd HH:mm',
+            'yyyy-MM-dd HH:mm z',
+            'EEE, d MMM yyyy h:mm a',
+            'EEE, d MMM yyyy HH:mm:ss',
+            'EEE, d MMM yyyy HH:mm:ss z'
     ]
 
     /**
@@ -68,6 +74,6 @@ class WcyTagLib {
 
     def formatDateFormat = {SimpleDateFormat df ->
         def now = new Date()
-        "${df.toPattern()}  -- e.g., ${df.format(now)}"
+        df.format(now)
     }
 }

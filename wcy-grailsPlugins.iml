@@ -2,8 +2,8 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../.grails/1.2.2/projects/ics664-wcy/plugins/tomcat-1.2.2">
-      <sourceFolder url="file://$MODULE_DIR$/../../.grails/1.2.2/projects/ics664-wcy/plugins/tomcat-1.2.2/src/groovy" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/tomcat-1.2.2">
+      <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/tomcat-1.2.2/src/groovy" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -11,11 +11,11 @@
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../.grails/1.2.2/projects/ics664-wcy/plugins/tomcat-1.2.2/lib" />
+          <root url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/tomcat-1.2.2/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../../.grails/1.2.2/projects/ics664-wcy/plugins/tomcat-1.2.2/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/tomcat-1.2.2/lib" recursive="false" />
       </library>
     </orderEntry>
   </component>

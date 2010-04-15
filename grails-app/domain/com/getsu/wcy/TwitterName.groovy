@@ -3,17 +3,11 @@
  *
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  */
-
 package com.getsu.wcy
 
-import java.text.SimpleDateFormat
+class TwitterName extends CommunicationLink {
 
-class Settings {
-
-    SimpleDateFormat dateFormat
-    TimeZone timeZone
-
-    static belongsTo = [user:User]
+    String twitterName
 
     static constraints = {
     }
