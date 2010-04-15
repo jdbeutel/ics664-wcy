@@ -5,6 +5,7 @@
       <configuration>
         <webroots>
           <root url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/navigation-1.1.1/web-app" relative="/" />
+          <root url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/authentication-2.0.1/web-app" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -12,24 +13,28 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/authentication-2.0.1">
+      <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/authentication-2.0.1/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/authentication-2.0.1/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/authentication-2.0.1/grails-app/domain" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/authentication-2.0.1/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/authentication-2.0.1/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/jetty-1.2-SNAPSHOT">
+      <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/jetty-1.2-SNAPSHOT/src/groovy" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/navigation-1.1.1">
       <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/navigation-1.1.1/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/navigation-1.1.1/grails-app/taglib" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/tomcat-1.2.2">
-      <sourceFolder url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/tomcat-1.2.2/src/groovy" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="grails-1.2.2" level="application" />
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library">
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/tomcat-1.2.2/lib" />
-        </CLASSES>
+        <CLASSES />
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../../../.grails/1.2.2/projects/wcy/plugins/tomcat-1.2.2/lib" recursive="false" />
       </library>
     </orderEntry>
   </component>

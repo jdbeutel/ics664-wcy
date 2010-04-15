@@ -19,6 +19,9 @@ body {
 #grailsLogo {
 	padding:20px;
 }
+.logo {
+    padding-left:20px;
+}
 
 a:link, a:visited, a:hover {
     color: #666;
