@@ -10,11 +10,11 @@ class Notification {
     User recipient
     Date date
     User subject
-    String action
+    String verb // Grails is already using "action"
     Person object // todo: Data superclass?
-    // todo: static hasMany = [actions:History]
+    // todo: static hasMany = [actions:History] details
 
     static constraints = {
-        action blank:false
+        verb blank:false
     }
 }

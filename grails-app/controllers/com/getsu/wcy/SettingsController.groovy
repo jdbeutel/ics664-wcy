@@ -2,6 +2,8 @@ package com.getsu.wcy
 
 class SettingsController {
 
+    static navigation = [group:'tabs', order:60, title:'settings']
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
