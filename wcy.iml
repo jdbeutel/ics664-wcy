@@ -6,12 +6,14 @@
         <fileset id="Grails" name="Grails" removed="false">
           <file>file://$MODULE_DIR$/web-app/WEB-INF/applicationContext.xml</file>
           <file>file://$MODULE_DIR$/web-app/WEB-INF/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/web-app/WEB-INF/applicationContext.xml</file>
         </fileset>
       </configuration>
     </facet>
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
+          <root url="file://$MODULE_DIR$/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/web-app" relative="/" />
         </webroots>
@@ -30,6 +32,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/integration" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/grails-app/utils" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/web-app/plugins" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -39,6 +42,18 @@
       <library name="Grails User Library">
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/org.mortbay.jetty/jetty/jars/jetty-6.1.21.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/org.mortbay.jetty/jetty-util/jars/jetty-util-6.1.21.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/org.mortbay.jetty/servlet-api/jars/servlet-api-2.5-20081211.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/org.mortbay.jetty/jetty-plus/jars/jetty-plus-6.1.21.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/geronimo-spec/geronimo-spec-jta/jars/geronimo-spec-jta-1.0.1B-rc4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/org.mortbay.jetty/jetty-naming/jars/jetty-naming-6.1.21.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/javax.mail/mail/jars/mail-1.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/tomcat/jasper-compiler-jdt/jars/jasper-compiler-jdt-5.5.15.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/org.eclipse.jdt/core/jars/core-3.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/tomcat/jasper-compiler/jars/jasper-compiler-5.5.15.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/org.mortbay.jetty/jsp-api-2.0/jars/jsp-api-2.0-6.1.21.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../.ivy2/cache/tomcat/jasper-runtime/jars/jasper-runtime-5.5.15.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
