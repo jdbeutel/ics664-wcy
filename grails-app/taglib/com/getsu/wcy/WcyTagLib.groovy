@@ -12,8 +12,8 @@ class WcyTagLib {
 
     static namespace='wcy'
 
-    private static VALID_TIME_ZONES = TimeZone.availableIDs.toList().grep(~/US\/.*/).collect {
-        TimeZone.getTimeZone(it)
+    private static VALID_TIME_ZONES = TimeZone.availableIDs.toList().grep(~/US\/.*/).collect { String id ->
+        TimeZone.getTimeZone(id)
     }.unique().sort {it.rawOffset}
 // sometimes this prevents start-up
 //    static {
@@ -52,9 +52,11 @@ class WcyTagLib {
             'MM/dd/yyyy h:mm a',
             'yyyy-MM-dd HH:mm',
             'yyyy-MM-dd HH:mm z',
+            'MMM d, yyyy h:mm a',
+            'EEE, MMM d, yyyy h:mm a',
             'EEE, d MMM yyyy h:mm a',
-            'EEE, d MMM yyyy HH:mm:ss',
-            'EEE, d MMM yyyy HH:mm:ss z'
+            'EEE, d MMM yyyy HH:mm',
+            'EEE, d MMM yyyy HH:mm z'
     ]
 
     /**
