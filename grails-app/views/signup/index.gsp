@@ -43,7 +43,7 @@
                     <g:renderErrors bean="${flash.signupFormErrors}" as="list" field="login"/>
                 </div>
             </g:hasErrors>
-            <label for="email">(Email):</label> <g:textField name="email" value="${flash.signupForm?.email?.encodeAsHTML()}"/><br/>
+            <g:hiddenField name="email" value="ignored@example.com"/>
             <g:hasErrors bean="${flash.signupFormErrors}" field="email">
                 <div class="errors">
                     <g:renderErrors bean="${flash.signupFormErrors}" as="list" field="email"/>

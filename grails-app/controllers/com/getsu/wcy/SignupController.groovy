@@ -6,7 +6,7 @@
 package com.getsu.wcy
 
 /**
- * just views delegating to the authentication plugin
+ * the view just delegates to the authentication plugin
  */
 class SignupController {
 
