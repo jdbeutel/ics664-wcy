@@ -65,7 +65,10 @@ class WcyTagLib {
      */
     def dateFormatSelect = {attrs ->
         attrs['from'] = VALID_DATE_FORMATS
-        attrs['value'] = (attrs['value'] ?: VALID_DATE_FORMATS[0])
+        if (!attrs['value'] instanceof SimpleDateFormat) {
+            throw new IllegalArgumentException("value must be a SimpleDateFormat: ${attrs['value']}")
+        }
+        attrs['value'] = (attrs['value']?.toPattern() ?: VALID_DATE_FORMATS[0])
 
         // set the option value as a closure that formats the DateFormat for display
         attrs['optionValue'] = { formatDateFormat(new SimpleDateFormat(it)) }
