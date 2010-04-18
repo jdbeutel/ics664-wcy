@@ -1,3 +1,10 @@
+import com.getsu.wcy.User
+
+// authentication plugin
+authenticationUserClass = User
+
+// grails.gorm.failOnError = true // fast fail for testing
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -50,10 +57,10 @@ environments {
         grails.serverURL = "http://www.changeme.com"
     }
     development {
-        grails.serverURL = "http://localhost:8080/${appName}"
+        grails.serverURL = "http://localhost:9090/${appName}"
     }
     test {
-        grails.serverURL = "http://localhost:8080/${appName}"
+        grails.serverURL = "http://localhost:9090/${appName}"
     }
 
 }
@@ -82,6 +89,3 @@ log4j = {
 
     warn   'org.mortbay.log'
 }
-
-
-     

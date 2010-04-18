@@ -19,7 +19,12 @@ class Person {
     static hasMany = [comLinks:CommunicationLink /* e.g. mobile phone or IM */, places:Connection]
 
     static constraints = {
+        preferredName nullable:true
         familyName blank:false
         givenNames blank:false
+        honorific nullable:true
+        suffix nullable:true
+        photo nullable:true
+        birthDate nullable:true
     }
 }

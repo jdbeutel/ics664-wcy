@@ -6,8 +6,16 @@ class SettingsController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    def authenticationService
+
     def index = {
-        redirect(action: "list", params: params)
+        // testing
+        def login = auth.user()
+        assert authenticationService.isLoggedIn(request)
+        User user = authenticationService.userPrincipal
+        assert login == user.login
+
+        redirect(action: "edit", params: params)
     }
 
     def list = {
@@ -44,40 +52,32 @@ class SettingsController {
     }
 
     def edit = {
-        def settingsInstance = Settings.get(params.id)
-        if (!settingsInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'settings.label', default: 'Settings'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            return [settingsInstance: settingsInstance]
-        }
+        assert authenticationService.isLoggedIn(request) // otherwise the filter would have redirected
+        User user = authenticationService.userPrincipal
+        return [settingsInstance: user.settings]
     }
 
     def update = {
-        def settingsInstance = Settings.get(params.id)
-        if (settingsInstance) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (settingsInstance.version > version) {
-                    
-                    settingsInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'settings.label', default: 'Settings')] as Object[], "Another user has updated this Settings while you were editing")
-                    render(view: "edit", model: [settingsInstance: settingsInstance])
-                    return
-                }
-            }
-            settingsInstance.properties = params
-            if (!settingsInstance.hasErrors() && settingsInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'settings.label', default: 'Settings'), settingsInstance.id])}"
-                redirect(action: "show", id: settingsInstance.id)
-            }
-            else {
+        assert authenticationService.isLoggedIn(request) // otherwise the filter would have redirected
+        User user = authenticationService.userPrincipal
+        def settingsInstance = user.settings
+        assert settingsInstance // constraint of User
+        if (params.version) {
+            def version = params.version.toLong()
+            if (settingsInstance.version > version) {
+
+                settingsInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'settings.label', default: 'Settings')] as Object[], "Another user has updated this Settings while you were editing")
                 render(view: "edit", model: [settingsInstance: settingsInstance])
+                return
             }
         }
+        settingsInstance.properties = params
+        if (!settingsInstance.hasErrors() && settingsInstance.save(flush: true)) {
+            flash.message = "${message(code: 'default.updated.message', args: [message(code: 'settings.label', default: 'Settings'), settingsInstance.id])}"
+            redirect(action: "edit", id: settingsInstance.id)
+        }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'settings.label', default: 'Settings'), params.id])}"
-            redirect(action: "list")
+            render(view: "edit", model: [settingsInstance: settingsInstance])
         }
     }
 
