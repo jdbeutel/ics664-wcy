@@ -9,5 +9,5 @@ class GroupController {
 
     static navigation = [group:'tabs', order:20, title:'groups']
 
-    def index = {render 'under construction'}
+    def index = {}
 }

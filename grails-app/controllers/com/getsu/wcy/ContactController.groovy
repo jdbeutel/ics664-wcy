@@ -9,5 +9,5 @@ class ContactController {
 
     static navigation = [group:'tabs', order:10, title:'contacts']
 
-    def index = {render 'under construction'}
+    def index = {}
 }
