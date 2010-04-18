@@ -11,6 +11,9 @@
         <div id="spinner" class="spinner" style="display:none;">
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>
+        <div id="auth">
+            <nav:render group="authOptions"/>
+        </div>
         <div class="logo"><h1>We'll Call You</h1></div>
         <div id="menu">
             <nav:render group="tabs"/>

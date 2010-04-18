@@ -3,6 +3,11 @@ html * {
     /*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */
 }
 
+#auth {
+    float: right;
+    padding-right: 20px;
+}
+
 /* GENERAL */
 
 .spinner {
@@ -69,7 +74,7 @@ input:focus, select:focus, textarea:focus {
 
 .nav {
     background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
-    border: 1px solid #ccc;
+    border: 1px #ccc;
     border-style: solid none solid none;
     margin-top: 5px;
     padding: 7px 12px;
@@ -121,7 +126,7 @@ div.errors ul {
     padding: 0;
 }
 div.errors li {
-	background: url(../images/skin/exclamation.png) 8px 0% no-repeat;
+	background: url(../images/skin/exclamation.png) 8px 0 no-repeat;
     line-height: 16px;
     padding-left: 30px;
 }
@@ -207,7 +212,7 @@ th.desc a {
 }
 .paginateButtons a {
     background: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid;
     border-color: #ccc #aaa #aaa #ccc;
     color: #666;
     margin: 0 3px;

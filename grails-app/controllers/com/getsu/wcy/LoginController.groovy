@@ -10,7 +10,17 @@ package com.getsu.wcy
  */
 class LoginController {
 
+    def authenticationService
+
+    static navigation = [
+		[group:'authOptions', action:'logout', title:'logout', order:99, isVisible:{ authenticationService.isLoggedIn(request) }]
+	]
+
     def index = { }
+
+    def logout = {
+        authenticationService.logout( authenticationService.sessionUser )
+    }
 
     def forgot = { }
 }
