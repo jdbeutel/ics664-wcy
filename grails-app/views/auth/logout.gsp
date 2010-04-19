@@ -20,7 +20,7 @@
     <auth:ifNotLoggedIn>
         <div class="message">Logout succeeded</div>
 
-        <g:link action="index">Log back in again</g:link><br/>
+        <g:link action="login">Log back in again</g:link><br/>
     </auth:ifNotLoggedIn>
 </div>
 </body>

@@ -6,9 +6,8 @@
 
 class WcyFilters {
     static nonAuthenticatedActions = [
-            [controller: 'authentication', action: '*'],
-            [controller: 'login', action: '*'],
-            [controller: 'signup', action: '*']
+            [controller: 'authentication', action: '*'], // plugin
+            [controller: 'auth', action: '*'] // mine
     ]
     def filters = {
         accessFilter(controller: '*', action: '*') {
@@ -19,7 +18,7 @@ class WcyFilters {
                 if (needsAuth) {
                     return applicationContext.authenticationService.filterRequest(
                             request, response,
-                            "${request.contextPath}/login/index")
+                            "${request.contextPath}/auth/login")
                 } else return true
             }
         }

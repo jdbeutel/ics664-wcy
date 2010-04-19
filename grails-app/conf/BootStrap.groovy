@@ -9,7 +9,6 @@ class BootStrap {
          // init auth events
          def events = appCtx.authenticationService.events // start with defaults
          events.onNewUserObject = { loginID -> User.createInstance(loginID) }
-//         events.onEncodePassword = { password -> password?.encodeAsMD5() } // documented as default, but wasn't
 //         events.onValidatePassword = { password -> return !appCtx.myDictionaryService.containsWord(password) }
      }
 

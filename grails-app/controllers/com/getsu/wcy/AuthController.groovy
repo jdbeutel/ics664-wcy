@@ -8,7 +8,7 @@ package com.getsu.wcy
 /**
  * just views delegating to the authentication plugin
  */
-class LoginController {
+class AuthController {
 
     def authenticationService
 
@@ -16,7 +16,13 @@ class LoginController {
 		[group:'authOptions', action:'logout', title:'logout', order:99, isVisible:{ authenticationService.isLoggedIn(request) }]
 	]
 
-    def index = { }
+    def index = {
+        redirect(action: "login", params: params)
+    }
+
+    def login = { }
+
+    def signup = { }
 
     def logout = {
         authenticationService.logout( authenticationService.sessionUser )

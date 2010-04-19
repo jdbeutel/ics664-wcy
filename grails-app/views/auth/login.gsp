@@ -20,7 +20,7 @@
             </div>
         </g:if>
         <h2>Log out</h2>
-        <auth:form authAction="logout" success="[controller:'login', action:'index']" error="[controller:'login', action:'index']">
+        <auth:form authAction="logout" success="[controller:'auth', action:'login']" error="[controller:'auth', action:'login']">
             <div class="buttons">
                 <g:actionSubmit value="Log out"/>
             </div>
@@ -39,7 +39,7 @@
         </g:if>
 
         <h2>Please log in</h2>
-        <auth:form authAction="login" success="[controller:'notification', action:'index']" error="[controller:'login', action:'index']">
+        <auth:form authAction="login" success="[controller:'contact', action:'index']" error="[controller:'auth', action:'login']">
             <label for="login">Email:</label> <g:textField id="login" name="login" size="42" value="${flash.loginForm?.login?.encodeAsHTML()}"/><br/>
             <g:hasErrors bean="${flash.loginFormErrors}" field="login">
                 <div class="errors">
@@ -58,7 +58,7 @@
         </auth:form>
 
         <g:link action="forgot">Forgot password</g:link><br/>
-        <g:link controller="signup" action="index">Sign up for new account</g:link>
+        <g:link action="signup">Sign up for new account</g:link>
     </auth:ifNotLoggedIn>
 </div>
 </body>

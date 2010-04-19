@@ -20,7 +20,7 @@
             </div>
         </g:if>
         <h2>Log out</h2>
-        <auth:form authAction="logout" success="[controller:'signup', action:'index']" error="[controller:'signup', action:'index']">
+        <auth:form authAction="logout" success="[controller:'login', action:'signup']" error="[controller:'login', action:'signup']">
             <div class="buttons">
                 <g:actionSubmit value="Log out"/>
             </div>
@@ -35,8 +35,8 @@
 
         <h2>Please sign up</h2>
         <auth:form authAction="signup"
-                success="[controller:'notification', action:'index']"
-                error="[controller:'signup', action:'index']">
+                success="[controller:'contact', action:'index']"
+                error="[controller:'login', action:'signup']">
             <label for="login">Email:</label> <g:textField name="login" size="42" value="${flash.signupForm?.login?.encodeAsHTML()}"/><br/>
             <g:hasErrors bean="${flash.signupFormErrors}" field="login">
                 <div class="errors">

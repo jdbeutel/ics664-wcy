@@ -71,6 +71,6 @@ class SettingsForm {
     static constraints = {
         loginEmail(size:6..40, email:true, blank:false, nullable:false)
         passwordChange(size:6..40, password:true, blank:true, nullable:true)
-        passwordChangeConfirm(password:true, validator: { val, obj -> obj.passwordChange == val })
+        passwordChangeConfirm(password:true, blank:true, nullable:true, validator: { val, obj -> obj.passwordChange == val })
     }
 }
