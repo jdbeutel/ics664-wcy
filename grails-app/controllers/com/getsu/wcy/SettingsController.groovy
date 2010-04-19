@@ -36,7 +36,7 @@ class SettingsController {
 
     def update = { SettingsForm sf ->
         assert authenticationService.isLoggedIn(request) // otherwise the filter would have redirected
-        // not using params.id because one can edit only one's own Settings
+        // not using params.id nor params.settings.id/params.user.id because one can edit only one's own User/Settings
         User user = authenticationService.userPrincipal
         if (user.version > sf.userVersion) {
             sf.errors.rejectValue("userVersion", "default.optimistic.locking.failure", [message(code: 'settings.label', default: 'Settings')] as Object[], "Another user has updated this Settings while you were editing")
@@ -91,6 +91,7 @@ class SettingsController {
     }
 }
 
+// todo: edit directly instead of using SettingsForm now that newPasswordConfirm is in PasswordForm?
 class SettingsForm {
     String loginEmail
     long userVersion

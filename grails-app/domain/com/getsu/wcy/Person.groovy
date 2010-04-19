@@ -8,9 +8,9 @@ package com.getsu.wcy
 class Person {
 
     String preferredName
-    String familyName // last names in English
-    String givenNames // first and middle names in English
     String honorific // e.g. Mr., Dr.
+    String givenNames // first and middle names in English
+    String familyName // last names in English
     String suffix // e.g. Jr., III, Sr., M.D., Ph.D.
 
     File photo
@@ -20,9 +20,9 @@ class Person {
 
     static constraints = {
         preferredName nullable:true
-        familyName blank:false
-        givenNames blank:false
         honorific nullable:true
+        givenNames blank:false
+        familyName blank:false
         suffix nullable:true
         photo nullable:true
         birthDate nullable:true
