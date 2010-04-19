@@ -11,7 +11,7 @@ class User {
 
     // required by authentication plugin
     String login // we use an email address here
-    String password // MD5 hash hex
+    String password // SHA1 hash hex
     String email // unused and not persisted
     int status
 
@@ -33,6 +33,6 @@ class User {
 
     def beforeInsert() { // GORM event hook
         // todo: withNewSession?
-        person.save(failOnError:true) // special handling because not all Person belongsTo User
+        person.save(failOnError:true) // this wasn't automatic because not all Person belongsTo User
     }
 }

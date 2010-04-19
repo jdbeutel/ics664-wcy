@@ -16,24 +16,51 @@
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
     </g:if>
-    <g:hasErrors bean="${settingsInstance}">
+    <g:hasErrors bean="${settingsForm}">
         <div class="errors">
-            <g:renderErrors bean="${settingsInstance}" as="list"/>
+            <g:renderErrors bean="${settingsForm}" as="list"/>
         </div>
     </g:hasErrors>
     <g:form method="post">
-        <g:hiddenField name="id" value="${settingsInstance?.id}"/>
-        <g:hiddenField name="version" value="${settingsInstance?.version}"/>
+        <g:hiddenField name="userVersion" value="${settingsForm?.userVersion}"/>
+        <g:hiddenField name="settingsVersion" value="${settingsForm?.settingsVersion}"/>
         <div class="dialog">
             <table>
                 <tbody>
 
                 <tr class="prop">
                     <td valign="top" class="name">
+                        <label for="loginEmail"><g:message code="settings.loginEmail.label" default="Login Email"/></label>
+                    </td>
+                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'loginEmail', 'errors')}">
+                        <g:textField name="loginEmail" size="42" value="${settingsForm?.loginEmail}"/>
+                    </td>
+                </tr>
+
+                <tr class="prop">
+                    <td valign="top" class="name">
+                        <label for="passwordChange"><g:message code="settings.passwordChange.label" default="Change Password"/></label>
+                    </td>
+                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'passwordChange', 'errors')}">
+                        <g:passwordField name="passwordChange" value=""/>
+                    </td>
+                </tr>
+
+                <tr class="prop">
+                    <td valign="top" class="name">
+                        <label for="passwordChangeConfirm"><g:message code="settings.passwordChangeConfirm.label" default="Change Password Confirmation"/></label>
+                    </td>
+                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'passwordChangeConfirm', 'errors')}">
+                        <g:passwordField name="passwordChangeConfirm" value=""/>
+                    </td>
+                </tr>
+
+                <tr class="prop">
+                    <td valign="top" class="name">
                         <label for="timeZone"><g:message code="settings.timeZone.label" default="Time Zone"/></label>
                     </td>
-                    <td valign="top" class="value ${hasErrors(bean: settingsInstance, field: 'timeZone', 'errors')}">
-                        <wcy:timeZoneSelect name="timeZone" value="${settingsInstance?.timeZone}"/>
+                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'timeZone', 'errors')}">
+                        <wcy:timeZoneSelect name="timeZone" value="${settingsForm?.timeZone}"/>
                     </td>
                 </tr>
 
@@ -41,8 +68,8 @@
                     <td valign="top" class="name">
                         <label for="dateFormat"><g:message code="settings.dateFormat.label" default="Date Format"/></label>
                     </td>
-                    <td valign="top" class="value ${hasErrors(bean: settingsInstance, field: 'dateFormat', 'errors')}">
-                        <wcy:dateFormatSelect name="dateFormat" value="${settingsInstance?.dateFormat}"/>
+                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'dateFormat', 'errors')}">
+                        <wcy:dateFormatSelect name="dateFormat" value="${settingsForm?.dateFormat}"/>
                     </td>
                 </tr>
 
