@@ -26,45 +26,128 @@
             </div>
         </auth:form>
     </auth:ifLoggedIn>
-    <auth:ifNotLoggedIn>
-        <g:if test="${flash.authenticationFailure}">
-            <div class="errors">
-                <ul><li>Sign up failed: <g:message code="authentication.failure.${flash.authenticationFailure.result}"/></li></ul>
-            </div>
-        </g:if>
 
-        <h2>Please sign up</h2>
-        <auth:form authAction="signup"
-                success="[controller:'contact', action:'index']"
-                error="[controller:'login', action:'signup']">
-            <label for="login">Email:</label> <g:textField name="login" size="42" value="${flash.signupForm?.login?.encodeAsHTML()}"/><br/>
-            <g:hasErrors bean="${flash.signupFormErrors}" field="login">
+    <auth:ifNotLoggedIn>
+        <div class="body">
+            <h2>Please sign up</h2>
+            <g:if test="${flash.message}">
+                <div class="message">${flash.message}</div>
+            </g:if>
+            <g:hasErrors bean="${personInstance}">
                 <div class="errors">
-                    <g:renderErrors bean="${flash.signupFormErrors}" as="list" field="login"/>
+                    <g:renderErrors bean="${personInstance}" as="list" />
                 </div>
             </g:hasErrors>
-            <g:hiddenField name="email" value="ignored@example.com"/>
-            <g:hasErrors bean="${flash.signupFormErrors}" field="email">
+            <g:hasErrors bean="${signupForm}">
                 <div class="errors">
-                    <g:renderErrors bean="${flash.signupFormErrors}" as="list" field="email"/>
+                    <g:renderErrors bean="${signupForm}" as="list" />
                 </div>
             </g:hasErrors>
-            <label for="password">Password:</label> <input id="password" name="password" value="" type="password"/><br/>
-            <g:hasErrors bean="${flash.signupFormErrors}" field="password">
-                <div class="errors">
-                    <g:renderErrors bean="${flash.signupFormErrors}" as="list" field="password"/>
+            <g:form action="doSignup" method="post" >
+                <div class="dialog">
+
+                    <table>
+                        <tbody>
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="login">Email</label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: signupForm, field: 'login', 'errors')}">
+                                <g:textField name="login" size="42" value="${signupForm?.login}" />
+                            </td>
+                        </tr>
+
+                        <g:hiddenField name="email" value="ignored@example.com"/>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="password">Password</label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: signupForm, field: 'password', 'errors')}">
+                                <g:passwordField name="password" value="" />
+                            </td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="passwordConfirm">Confirm password</label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: signupForm, field: 'passwordConfirm', 'errors')}">
+                                <g:passwordField name="passwordConfirm" value="" />
+                            </td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="preferredName"><g:message code="person.preferredName.label" default="Preferred Name" /></label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'preferredName', 'errors')}">
+                                <g:textField name="preferredName" value="${personInstance?.preferredName}" />
+                            </td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="honorific"><g:message code="person.honorific.label" default="Honorific" /></label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'honorific', 'errors')}">
+                                <g:textField name="honorific" value="${personInstance?.honorific}" />
+                            </td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="givenNames"><g:message code="person.givenNames.label" default="Given Names" /></label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'givenNames', 'errors')}">
+                                <g:textField name="givenNames" value="${personInstance?.givenNames}" />
+                            </td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="familyName"><g:message code="person.familyName.label" default="Family Name" /></label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'familyName', 'errors')}">
+                                <g:textField name="familyName" value="${personInstance?.familyName}" />
+                            </td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="suffix"><g:message code="person.suffix.label" default="Suffix" /></label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'suffix', 'errors')}">
+                                <g:textField name="suffix" value="${personInstance?.suffix}" />
+                            </td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="photo"><g:message code="person.photo.label" default="Photo" /></label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'photo', 'errors')}">
+
+                            </td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name">
+                                <label for="birthDate"><g:message code="person.birthDate.label" default="Birth Date" /></label>
+                            </td>
+                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'birthDate', 'errors')}">
+                                <g:datePicker name="birthDate" precision="day" value="${personInstance?.birthDate}" noSelection="['': '']" />
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
                 </div>
-            </g:hasErrors>
-            <label for="passwordConfirm">Confirm password:</label> <input id="passwordConfirm" name="passwordConfirm" value="" type="password"/><br/>
-            <g:hasErrors bean="${flash.signupFormErrors}" field="passwordConfirm">
-                <div class="errors">
-                    <g:renderErrors bean="${flash.signupFormErrors}" as="list" field="passwordConfirm"/>
+                <div class="buttons">
+                    <span class="button"><g:submitButton name="doSignup" class="save" value="Sign up" /></span>
                 </div>
-            </g:hasErrors>
-            <div class="buttons">
-                <g:actionSubmit value="Sign up" class="save"/>
-            </div>
-        </auth:form>
+            </g:form>
+        </div>
     </auth:ifNotLoggedIn>
 </div>
 </body>

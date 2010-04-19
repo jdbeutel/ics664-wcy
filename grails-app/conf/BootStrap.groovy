@@ -9,6 +9,10 @@ class BootStrap {
          // init auth events
          def events = appCtx.authenticationService.events // start with defaults
          events.onNewUserObject = { loginID -> User.createInstance(loginID) }
+         events.onSignup = { params ->
+             params.user.person.properties[ 'preferredName', 'honorific', 'givenNames', 'familyName', 'suffix', 'photo', 'birthDate'] = params.params
+             params.user.person.save(failOnError:true)
+         }
 //         events.onValidatePassword = { password -> return !appCtx.myDictionaryService.containsWord(password) }
      }
 
