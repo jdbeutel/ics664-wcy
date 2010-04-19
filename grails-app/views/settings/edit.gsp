@@ -39,24 +39,6 @@
 
                 <tr class="prop">
                     <td valign="top" class="name">
-                        <label for="passwordChange"><g:message code="settings.passwordChange.label" default="Change Password"/></label>
-                    </td>
-                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'passwordChange', 'errors')}">
-                        <g:passwordField name="passwordChange" value=""/>
-                    </td>
-                </tr>
-
-                <tr class="prop">
-                    <td valign="top" class="name">
-                        <label for="passwordChangeConfirm"><g:message code="settings.passwordChangeConfirm.label" default="Change Password Confirmation"/></label>
-                    </td>
-                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'passwordChangeConfirm', 'errors')}">
-                        <g:passwordField name="passwordChangeConfirm" value=""/>
-                    </td>
-                </tr>
-
-                <tr class="prop">
-                    <td valign="top" class="name">
                         <label for="timeZone"><g:message code="settings.timeZone.label" default="Time Zone"/></label>
                     </td>
                     <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'timeZone', 'errors')}">
@@ -78,6 +60,7 @@
         </div>
         <div class="buttons">
             <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Save')}"/></span>
+            <span class="button"><g:actionSubmit class="edit" action="editPassword" value="Change Password"/></span>
         </div>
     </g:form>
 </div>
