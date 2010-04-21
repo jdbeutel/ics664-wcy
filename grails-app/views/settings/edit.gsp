@@ -15,9 +15,11 @@
         function doOnLoad() {
             $('changePasswordToggle').show();
             $('changePasswordWithoutJsSpan').hide();
-            if ($F($('htmlForm')['changePassword'])) {
-                $('changePasswordDiv').show();
-            } else {
+            if (!$F($('htmlForm')['changePassword'])) {
+                %{-- trying to stop Firefox from filling in oldPassword later, but nothing is working --}%
+                %{--var opw = $('htmlForm')['oldPassword'];--}%
+                %{--$(opw).focus().clear();--}%
+                %{--$($('htmlForm')['timeZone']).focus(); --}%%{-- harmless if accidentally changed --}%
                 $('changePasswordDiv').hide();
             }
             updateChangePasswordToggle();
@@ -69,7 +71,7 @@
 
                 <tr>
                     <td colspan="2">
-                        <a href="#" id="changePasswordToggle" onclick="toggleChangePassword()" style="display: none">&gt; Change Password</a>
+                        <a href="#" id="changePasswordToggle" class="expander" onclick="toggleChangePassword()" style="display: none">&gt; Change Password</a>
                         <span id="changePasswordWithoutJsSpan">
                             <label for="changePassword">Change Password</label>
                             <g:checkBox name="changePassword" value="${settingsForm?.changePassword}"/>
