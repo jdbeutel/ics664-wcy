@@ -13,6 +13,23 @@
     <title><g:message code="default.edit.label" args="[entityName]"/></title>
     <script type="text/javascript">
         function doOnLoad() {
+            initPasswordChange();
+            initChangeObservers();
+        }
+        function initChangeObservers() {
+            $$('input.save')[0].disable();
+            $$('input').invoke('observe', 'change', handleChange);
+        }
+        function handleChange(/*event*/) {
+            this.addClassName('changed');
+            var saveButton = $$('input.save')[0];
+            if (saveButton.disabled) {
+                saveButton.enable();
+                new Effect.Highlight(saveButton, { startcolor: '#f8fc04', endcolor: '#ffff99', restorecolor: '#ffff99' });
+            }
+            return true; // browser must also handle this event
+        }
+        function initPasswordChange() {
             $('changePasswordToggle').show();
             $('changePasswordWithoutJsSpan').hide();
             if (!$F($('htmlForm')['changePassword'])) {

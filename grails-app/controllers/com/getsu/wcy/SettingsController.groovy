@@ -55,8 +55,14 @@ class SettingsController {
                 render(view: "edit", model: [settingsForm:sf]) // failure, show errors and try again
                 return
             }
+            sf.newPassword = sf.newPassword.trim() // todo: see if grails does this automatically
             if (!sf.newPassword) {
                 sf.errors.rejectValue("newPassword", "settingsForm.newPassword.missing", "Please type in a new password")
+                render(view: "edit", model: [settingsForm:sf]) // failure, show errors and try again
+                return
+            }
+            if (![6..40].contains(sf.newPassword.size())) {
+                sf.errors.rejectValue("newPassword", "settingsForm.newPassword.length", "New password needs between 6 and 40 characters")
                 render(view: "edit", model: [settingsForm:sf]) // failure, show errors and try again
                 return
             }
@@ -109,7 +115,7 @@ class SettingsForm {
 
     static constraints = {
         loginEmail(size:6..40, email:true, blank:false, nullable:false)
-        newPassword(size:6..40, password:true, blank:false, nullable: true)
+        newPassword(password:true, blank:false, nullable: true)
         newPasswordConfirm(password:true, blank:false, nullable:true)
     }
 }
