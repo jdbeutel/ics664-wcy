@@ -40,13 +40,13 @@
 
         <h2>Please log in</h2>
         <auth:form authAction="login" success="[controller:'contact', action:'index']" error="[controller:'auth', action:'login']">
-            <label for="login">Email:</label> <g:textField id="login" name="login" size="42" value="${flash.loginForm?.login?.encodeAsHTML()}"/><br/>
+            <label for="login">Email Address</label> <g:textField id="login" name="login" size="42" value="${flash.loginForm?.login?.encodeAsHTML()}"/><br/>
             <g:hasErrors bean="${flash.loginFormErrors}" field="login">
                 <div class="errors">
                     <g:renderErrors bean="${flash.loginFormErrors}" as="list" field="login"/>
                 </div>
             </g:hasErrors>
-            <label for="password">Password:</label> <input id="password" name="password" value="" type="password"/><br/>
+            <label for="password">Password</label> <input id="password" name="password" value="" type="password"/><br/>
             <g:hasErrors bean="${flash.loginFormErrors}" field="password">
                 <div class="errors">
                     <g:renderErrors bean="${flash.loginFormErrors}" as="list" field="password"/>
