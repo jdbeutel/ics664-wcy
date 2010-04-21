@@ -3,6 +3,10 @@ html * {
     /*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */
 }
 
+#menu {
+    float: left;
+}
+
 #auth {
     float: right;
     padding-right: 20px;
@@ -66,6 +70,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .body {
+    clear: left;
     float: left;
     margin: 0 15px 10px 15px;
 }
@@ -73,6 +78,7 @@ input:focus, select:focus, textarea:focus {
 /* NAVIGATION MENU */
 
 .nav {
+    clear: left;
     background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
     border: 1px #ccc;
     border-style: solid none solid none;
@@ -254,6 +260,7 @@ th.desc a {
 }
 
 .buttons input {
+    float: right;
     background: #fff;
     border: 0;
     color: #333;
