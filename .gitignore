@@ -2,6 +2,7 @@
 stacktrace.log
 /test/reports
 /web-app/WEB-INF
+/web-app/plugins
 /out
 /target
 *.war
