@@ -43,7 +43,7 @@
                     <g:renderErrors bean="${signupForm}" as="list" />
                 </div>
             </g:hasErrors>
-            <g:form action="doSignup" method="post" >
+            <g:uploadForm action="doSignup" method="post" >
                 <div class="dialog">
 
                     <table>
@@ -85,7 +85,7 @@
                 <div class="buttons">
                     <span class="button"><g:submitButton name="doSignup" class="save" value="Sign up" /></span>
                 </div>
-            </g:form>
+            </g:uploadForm>
         </div>
     </auth:ifNotLoggedIn>
 </div>

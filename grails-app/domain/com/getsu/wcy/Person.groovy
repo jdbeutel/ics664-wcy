@@ -14,7 +14,8 @@ class Person {
     String familyName // last names in English
     String suffix // e.g. Jr., III, Sr., M.D., Ph.D.
 
-    File photo
+    byte[] photo
+    String photoFileName // for format clues in the file name extension
     Date birthDate
 
     static hasMany = [comLinks:CommunicationLink /* e.g. mobile phone or IM */, places:Connection]
@@ -27,6 +28,7 @@ class Person {
         familyName blank:false
         suffix nullable:true
         photo nullable:true
+        photoFileName nullable:true
         birthDate nullable:true
     }
 }

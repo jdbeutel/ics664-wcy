@@ -64,7 +64,12 @@
         <label for="photo"><g:message code="person.photo.label" default="Photo" /></label>
     </td>
     <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'photo', 'errors')}">
-
+        <g:if test="${personInstance?.photo}">
+            <img alt="photo" width="200px" height="150px" class="photo"
+                    src="${createLink(controller:'person', action:'viewPhoto', id:personInstance?.id)}" />
+            <br/>
+        </g:if>
+        <input type="file" name="photo"/>
     </td>
 </tr>
 

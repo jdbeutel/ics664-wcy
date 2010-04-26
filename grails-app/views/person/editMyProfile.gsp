@@ -21,7 +21,7 @@
                 <g:renderErrors bean="${personInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form method="post" >
+            <g:uploadForm method="post" >
                 <div class="dialog">
                     <table>
                         <tbody>
@@ -32,7 +32,7 @@
                 <div class="buttons">
                     <span class="button"><g:actionSubmit class="save" action="updateMyProfile" value="${message(code: 'default.button.update.label', default: 'Save')}" /></span>
                 </div>
-            </g:form>
+            </g:uploadForm>
         </div>
     </body>
 </html>

@@ -11,7 +11,7 @@ class BootStrap {
          events.onNewUserObject = { loginID -> User.createInstance(loginID) }
          events.onSignup = { params ->
              def includes = [ 'preferredName', 'honorific', 'firstGivenName', 'middleGivenNames', 'familyName',
-                     'suffix', 'photo', 'birthDate' ]
+                     'suffix', 'photo', 'photoFileName', 'birthDate' ]
              params.user.person.properties[includes] = params.params
              params.user.person.save(failOnError:true)
          }

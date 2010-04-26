@@ -1,5 +1,7 @@
 package com.getsu.wcy
 
+import org.springframework.web.multipart.MultipartFile
+
 class PersonController {
 
     static navigation = [group:'tabs', order:30, title:'my profile', action:'editMyProfile']
@@ -90,6 +92,11 @@ class PersonController {
         }
     }
 
+    public static getOriginalFileName(MultipartFile uploadedFile) {
+        char otherSeparatorChar = (char) (File.separatorChar == '/' ? '\\' : '/')
+        return new File(uploadedFile.originalFilename.replace(otherSeparatorChar, File.separatorChar)).name
+    }
+
     def updateMyProfile = {
         assert authenticationService.isLoggedIn(request) // otherwise the filter would have redirected
         User user = authenticationService.userPrincipal
@@ -106,6 +113,10 @@ class PersonController {
                 }
             }
             personInstance.properties = params
+            MultipartFile uploadedFile = request.getFile('photo')
+            if (uploadedFile) {
+                personInstance.photoFileName = getOriginalFileName(uploadedFile)
+            }
             if (!personInstance.hasErrors() && personInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'person.label', default: 'Person'), personInstance.id])}"
                 redirect(action: "editMyProfile", id: personInstance.id) // success, but always editing
@@ -118,6 +129,16 @@ class PersonController {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'person.label', default: 'Person'), params.id])}"
             redirect(action: "list")
         }
+    }
+
+    def viewPhoto = {
+        Person p = Person.get(params.id)
+        // todo: check access authorization
+        response.setHeader("Content-disposition", "attachment; filename=${p.photoFileName}")
+        // response.contentType = photo.fileType //'image/jpeg' will do too
+        response.outputStream << p.photo
+        response.outputStream.flush()
+        return;
     }
 
     def delete = {

@@ -7,6 +7,7 @@ package com.getsu.wcy
 
 import com.grailsrocks.authentication.SignupForm
 import com.grailsrocks.authentication.AuthenticatedUser
+import org.springframework.web.multipart.MultipartFile
 
 /**
  * just views delegating to the authentication plugin
@@ -31,6 +32,10 @@ class AuthController {
         if (!p.validate() || sf.hasErrors()) { // todo: consistent validate & hasErrors?
             render(view:'signup', model:[personInstance:p, signupForm:sf]) // try again
             return
+        }
+        MultipartFile uploadedFile = request.getFile('photo')
+        if (uploadedFile) {
+            params.photoFileName = PersonController.getOriginalFileName(uploadedFile)
         }
         def signupResult = authenticationService.signup( login:sf.login,
                 password:sf.password, email:sf.email, immediate:true, extraParams:params)
