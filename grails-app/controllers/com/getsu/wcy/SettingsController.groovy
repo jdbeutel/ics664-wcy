@@ -1,7 +1,6 @@
 package com.getsu.wcy
 
 import java.text.SimpleDateFormat
-import grails.converters.JSON
 
 class SettingsController {
 
@@ -56,13 +55,13 @@ class SettingsController {
                 render(view: "edit", model: [settingsForm:sf]) // failure, show errors and try again
                 return
             }
-            sf.newPassword = sf.newPassword.trim() // todo: see if grails does this automatically
+            sf.newPassword = sf.newPassword?.trim() // todo: see if grails does this automatically
             if (!sf.newPassword) {
                 sf.errors.rejectValue("newPassword", "settingsForm.newPassword.missing", "Please type in a new password")
                 render(view: "edit", model: [settingsForm:sf]) // failure, show errors and try again
                 return
             }
-            if (![6..40].contains(sf.newPassword.size())) {
+            if (!(6..40).contains(sf.newPassword.size())) {
                 sf.errors.rejectValue("newPassword", "settingsForm.newPassword.length", "New password needs from 6 to 40 characters")
                 render(view: "edit", model: [settingsForm:sf]) // failure, show errors and try again
                 return
