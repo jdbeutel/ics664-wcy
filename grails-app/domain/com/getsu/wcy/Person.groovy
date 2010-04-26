@@ -9,7 +9,8 @@ class Person {
 
     String preferredName
     String honorific // e.g. Mr., Dr.
-    String givenNames // first and middle names in English
+    String firstGivenName
+    String middleGivenNames
     String familyName // last names in English
     String suffix // e.g. Jr., III, Sr., M.D., Ph.D.
 
@@ -21,7 +22,8 @@ class Person {
     static constraints = {
         preferredName nullable:true
         honorific nullable:true
-        givenNames blank:false
+        firstGivenName blank:false
+        middleGivenNames nullable:true
         familyName blank:false
         suffix nullable:true
         photo nullable:true

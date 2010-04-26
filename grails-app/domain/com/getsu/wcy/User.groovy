@@ -26,7 +26,7 @@ class User {
     static transients = ['email']
 
     static User createInstance(String loginID) {
-        def p = new Person(givenNames:'John', familyName:'Doe')
+        def p = new Person(firstGivenName:'John', familyName:'Doe')
         def s = new Settings( dateFormat:new SimpleDateFormat('yyyy-MM-dd HH:mm'), timeZone:TimeZone.default )
         return new User(login:loginID, person:p, settings:s)
     }

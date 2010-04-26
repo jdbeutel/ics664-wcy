@@ -77,68 +77,7 @@
                             </td>
                         </tr>
 
-                        <tr class="prop">
-                            <td valign="top" class="name">
-                                <label for="preferredName"><g:message code="person.preferredName.label" default="Preferred Name" /></label>
-                            </td>
-                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'preferredName', 'errors')}">
-                                <g:textField name="preferredName" value="${personInstance?.preferredName}" />
-                            </td>
-                        </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="name">
-                                <label for="honorific"><g:message code="person.honorific.label" default="Honorific" /></label>
-                            </td>
-                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'honorific', 'errors')}">
-                                <g:textField name="honorific" value="${personInstance?.honorific}" />
-                            </td>
-                        </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="name">
-                                <label for="givenNames"><g:message code="person.givenNames.label" default="Given Names" /></label>
-                            </td>
-                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'givenNames', 'errors')}">
-                                <g:textField name="givenNames" value="${personInstance?.givenNames}" />
-                            </td>
-                        </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="name">
-                                <label for="familyName"><g:message code="person.familyName.label" default="Family Name" /></label>
-                            </td>
-                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'familyName', 'errors')}">
-                                <g:textField name="familyName" value="${personInstance?.familyName}" />
-                            </td>
-                        </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="name">
-                                <label for="suffix"><g:message code="person.suffix.label" default="Suffix" /></label>
-                            </td>
-                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'suffix', 'errors')}">
-                                <g:textField name="suffix" value="${personInstance?.suffix}" />
-                            </td>
-                        </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="name">
-                                <label for="photo"><g:message code="person.photo.label" default="Photo" /></label>
-                            </td>
-                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'photo', 'errors')}">
-
-                            </td>
-                        </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="name">
-                                <label for="birthDate"><g:message code="person.birthDate.label" default="Birth Date" /></label>
-                            </td>
-                            <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'birthDate', 'errors')}">
-                                <g:datePicker name="birthDate" precision="day" value="${personInstance?.birthDate}" noSelection="['': '']" />
-                            </td>
-                        </tr>
+                        <g:render template="/person/editCore"/>
 
                         </tbody>
                     </table>
