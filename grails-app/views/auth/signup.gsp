@@ -9,6 +9,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="unauth"/>
     <title>Sign up</title>
+    <g:javascript library="scriptaculous"/>
+    <g:javascript src="changeManager.js"/>
+    <script type="text/javascript">
+        $(document).observe('dom:loaded', function() {ChangeManager.init($('htmlForm'), $('doSignup'), [])});
+    </script>
 </head>
 <body>
 <div class="body">
@@ -43,7 +48,7 @@
                     <g:renderErrors bean="${signupForm}" as="list" />
                 </div>
             </g:hasErrors>
-            <g:uploadForm action="doSignup" method="post" >
+            <g:uploadForm name="htmlForm" action="doSignup" method="post" >
                 <div class="dialog">
 
                     <table>

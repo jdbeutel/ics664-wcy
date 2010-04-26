@@ -50,7 +50,7 @@ class AuthController {
             }
             redirect(controller:'contact', action:'index') // success
         } else {
-            sf.errors.rejectValue("authenticationFailure", "authentication.failure.${signupResult.result}")
+            sf.errors.rejectValue("login", "authentication.failure.${signupResult.result}")
             render(view:'signup', model:[personInstance:p, signupForm:sf]) // try again
         }
     }

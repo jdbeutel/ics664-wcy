@@ -7,6 +7,7 @@
     <td valign="top" class="name">
         <g:hiddenField name="id" value="${personInstance?.id}" />
         <g:hiddenField name="version" value="${personInstance?.version}" />
+        <g:hiddenField name="originalValuesJSON" value="${personInstance?.originalValuesJSON}"/>
         <label for="preferredName"><g:message code="person.preferredName.label" default="Preferred Name" /></label>
     </td>
     <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'preferredName', 'errors')}">

@@ -18,6 +18,10 @@ class Person {
     String photoFileName // for format clues in the file name extension
     Date birthDate
 
+    String originalValuesJSON
+
+    static transients = ['originalValuesJSON']
+
     static hasMany = [comLinks:CommunicationLink /* e.g. mobile phone or IM */, places:Connection]
 
     static constraints = {
