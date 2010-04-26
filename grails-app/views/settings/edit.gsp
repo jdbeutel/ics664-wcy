@@ -13,7 +13,7 @@
     <title><g:message code="default.edit.label" args="[entityName]"/></title>
     <script type="text/javascript">
         function doOnLoad() {
-            initPasswordChange();
+            ExpandManager.init();
             ChangeManager.init();
         }
         var ChangeManager = {
@@ -69,33 +69,35 @@
                 new Effect.Highlight(saveButton, { startcolor: '#ffaa00', endcolor: '#ffff99', restorecolor: '#ffff99' });
             }
         };
-        function initPasswordChange() {
-            $('changePasswordToggle').show();
-            $('changePasswordWithoutJsSpan').hide();
-            if (!$F($('htmlForm')['changePassword'])) {
-                %{-- trying to stop Firefox from filling in oldPassword later, but nothing is working --}%
-                %{--var opw = $('htmlForm')['oldPassword'];--}%
-                %{--$(opw).focus().clear();--}%
-                %{--$($('htmlForm')['timeZone']).focus(); --}%%{-- harmless if accidentally changed --}%
-                $('changePasswordDiv').hide();
-            }
-            updateChangePasswordToggle();
-        }
-        function toggleChangePassword() {
-            var showNow = !$F($('htmlForm')['changePassword']);
-            $($('htmlForm')['changePassword']).setValue(showNow);
-            if (showNow) {
-                Effect.SlideDown('changePasswordDiv', {duration:0.5});
-            } else {
-                Effect.SlideUp('changePasswordDiv', {duration:0.5});
-            }
-            updateChangePasswordToggle();
-        }
-        function updateChangePasswordToggle() {
-            if ($F($('htmlForm')['changePassword'])) {
-                $('changePasswordToggle').update('V Cancel password change').removeClassName('closed').addClassName('open');
-            } else {
-                $('changePasswordToggle').update('&gt; Change Password').removeClassName('open').addClassName('closed');
+        var ExpandManager = {
+            init: function() {
+                $('changePasswordToggle').show();
+                $('changePasswordWithoutJsSpan').hide();
+                if (!$F($('htmlForm')['changePassword'])) {
+                    %{-- trying to stop Firefox from filling in oldPassword later, but nothing is working --}%
+                    %{--var opw = $('htmlForm')['oldPassword'];--}%
+                    %{--$(opw).focus().clear();--}%
+                    %{--$($('htmlForm')['timeZone']).focus(); --}%%{-- harmless if accidentally changed --}%
+                    $('changePasswordDiv').hide();
+                }
+                ExpandManager.updateChangePasswordToggle();
+            },
+            toggleChangePassword: function() {
+                var showNow = !$F($('htmlForm')['changePassword']);
+                $($('htmlForm')['changePassword']).setValue(showNow);
+                if (showNow) {
+                    Effect.SlideDown('changePasswordDiv', {duration:0.5});
+                } else {
+                    Effect.SlideUp('changePasswordDiv', {duration:0.5});
+                }
+                ExpandManager.updateChangePasswordToggle();
+            },
+            updateChangePasswordToggle: function() {
+                if ($F($('htmlForm')['changePassword'])) {
+                    $('changePasswordToggle').update('V Cancel password change').removeClassName('closed').addClassName('open');
+                } else {
+                    $('changePasswordToggle').update('&gt; Change Password').removeClassName('open').addClassName('closed');
+                }
             }
         }
     </script>
@@ -129,7 +131,7 @@
 
                 <tr>
                     <td colspan="2">
-                        <a href="#" id="changePasswordToggle" class="expander" onclick="toggleChangePassword()" style="display: none">&gt; Change Password</a>
+                        <a href="#" id="changePasswordToggle" class="expander" onclick="ExpandManager.toggleChangePassword()" style="display: none">&gt; Change Password</a>
                         <span id="changePasswordWithoutJsSpan">
                             <label for="changePassword">Change Password</label>
                             <g:checkBox name="changePassword" value="${settingsForm?.changePassword}"/>
