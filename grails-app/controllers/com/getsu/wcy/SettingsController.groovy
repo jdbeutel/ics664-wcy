@@ -1,6 +1,7 @@
 package com.getsu.wcy
 
 import java.text.SimpleDateFormat
+import grails.converters.JSON
 
 class SettingsController {
 
@@ -62,7 +63,7 @@ class SettingsController {
                 return
             }
             if (![6..40].contains(sf.newPassword.size())) {
-                sf.errors.rejectValue("newPassword", "settingsForm.newPassword.length", "New password needs between 6 and 40 characters")
+                sf.errors.rejectValue("newPassword", "settingsForm.newPassword.length", "New password needs from 6 to 40 characters")
                 render(view: "edit", model: [settingsForm:sf]) // failure, show errors and try again
                 return
             }
@@ -112,6 +113,8 @@ class SettingsForm {
     String oldPassword
     String newPassword
     String newPasswordConfirm
+
+    String originalValuesJSON
 
     static constraints = {
         loginEmail(size:6..40, email:true, blank:false, nullable:false)

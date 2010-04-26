@@ -14,21 +14,61 @@
     <script type="text/javascript">
         function doOnLoad() {
             initPasswordChange();
-            initChangeObservers();
+            ChangeManager.init();
         }
-        function initChangeObservers() {
-            $$('input.save')[0].disable();
-            $$('input').invoke('observe', 'change', handleChange);
-        }
-        function handleChange(/*event*/) {
-            this.addClassName('changed');
-            var saveButton = $$('input.save')[0];
-            if (saveButton.disabled) {
-                saveButton.enable();
-                new Effect.Highlight(saveButton, { startcolor: '#f8fc04', endcolor: '#ffff99', restorecolor: '#ffff99' });
+        var ChangeManager = {
+            originalValues: $H(),
+            changedFields: $H(),
+            init: function() {
+                var ovj = $('htmlForm')['originalValuesJSON']; // saved from previous submits
+                if ($F(ovj).empty()) {
+                    ChangeManager.originalValues = $H();
+                    $$('input, select').each(function(element) {
+                        ChangeManager.originalValues.set(element.name, $F(element))
+                    });
+                    ovj.value = ChangeManager.originalValues.toJSON();
+                } else {
+                    ChangeManager.originalValues = $H($F(ovj).evalJSON());
+                    $$('input, select').each(function(element) {
+                        var n = element.name;
+                        if (n != 'originalValuesJSON' && n != 'changePassword'
+                                && ChangeManager.originalValues.get(n) != $F(element)) {
+                            ChangeManager.changedFields.set(n, true);
+                            element.addClassName('changed');
+                        }
+                    });
+                }
+                var saveButton = $$('input.save')[0];
+                if (ChangeManager.changedFields.keys().length == 0) {
+                    saveButton.disable();
+                } else {
+                    ChangeManager.highlightSaveButton(saveButton);
+                }
+                $$('input, select').invoke('observe', 'change', ChangeManager.handleChange);
+            },
+            handleChange: function(/*event*/) {
+                var saveButton = $$('input.save')[0];
+                if (ChangeManager.originalValues.get(this.name) == $F(this)) {
+                    this.removeClassName('changed');
+                    ChangeManager.changedFields.unset(this.name);
+                    if (ChangeManager.changedFields.keys().length == 0) {
+                        saveButton.disable();
+                        saveButton.setStyle({backgroundColor: 'white'});
+                    }
+                } else {
+                    this.addClassName('changed');
+                    ChangeManager.changedFields.set(this.name, true);
+                    if (saveButton.disabled) {
+                        saveButton.enable();
+                        ChangeManager.highlightSaveButton(saveButton);
+                    }
+                }
+                return true; // have the browser also handle this event
+            },
+            highlightSaveButton: function(saveButton) {
+                new Effect.Highlight(saveButton, { startcolor: '#ffaa00', endcolor: '#ffff99', restorecolor: '#ffff99' });
             }
-            return true; // browser must also handle this event
-        }
+        };
         function initPasswordChange() {
             $('changePasswordToggle').show();
             $('changePasswordWithoutJsSpan').hide();
@@ -45,9 +85,9 @@
             var showNow = !$F($('htmlForm')['changePassword']);
             $($('htmlForm')['changePassword']).setValue(showNow);
             if (showNow) {
-                Effect.SlideDown('changePasswordDiv');
+                Effect.SlideDown('changePasswordDiv', {duration:0.5});
             } else {
-                Effect.SlideUp('changePasswordDiv');
+                Effect.SlideUp('changePasswordDiv', {duration:0.5});
             }
             updateChangePasswordToggle();
         }
@@ -73,6 +113,7 @@
     <g:form name="htmlForm" method="post"> %{-- grails name -> id --}%
         <g:hiddenField name="userVersion" value="${settingsForm?.userVersion}"/>
         <g:hiddenField name="settingsVersion" value="${settingsForm?.settingsVersion}"/>
+        <g:hiddenField name="originalValuesJSON" value="${settingsForm?.originalValuesJSON}"/>
         <div class="dialog">
             <table>
                 <tbody>
