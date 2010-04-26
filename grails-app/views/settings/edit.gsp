@@ -11,64 +11,12 @@
     <g:javascript library="scriptaculous"/>
     <g:set var="entityName" value="${message(code: 'settings.label', default: 'Settings')}"/>
     <title><g:message code="default.edit.label" args="[entityName]"/></title>
+    <g:javascript src="changeManager.js"/>
     <script type="text/javascript">
-        function doOnLoad() {
-            ExpandManager.init();
-            ChangeManager.init();
-        }
-        var ChangeManager = {
-            originalValues: $H(),
-            changedFields: $H(),
-            init: function() {
-                var ovj = $('htmlForm')['originalValuesJSON']; // saved from previous submits
-                if ($F(ovj).empty()) {
-                    ChangeManager.originalValues = $H();
-                    $$('input, select').each(function(element) {
-                        ChangeManager.originalValues.set(element.name, $F(element))
-                    });
-                    ovj.value = ChangeManager.originalValues.toJSON();
-                } else {
-                    ChangeManager.originalValues = $H($F(ovj).evalJSON());
-                    $$('input, select').each(function(element) {
-                        var n = element.name;
-                        if (n != 'originalValuesJSON' && n != 'changePassword'
-                                && ChangeManager.originalValues.get(n) != $F(element)) {
-                            ChangeManager.changedFields.set(n, true);
-                            element.addClassName('changed');
-                        }
-                    });
-                }
-                var saveButton = $$('input.save')[0];
-                if (ChangeManager.changedFields.keys().length == 0) {
-                    saveButton.disable();
-                } else {
-                    ChangeManager.highlightSaveButton(saveButton);
-                }
-                $$('input, select').invoke('observe', 'change', ChangeManager.handleChange);
-            },
-            handleChange: function(/*event*/) {
-                var saveButton = $$('input.save')[0];
-                if (ChangeManager.originalValues.get(this.name) == $F(this)) {
-                    this.removeClassName('changed');
-                    ChangeManager.changedFields.unset(this.name);
-                    if (ChangeManager.changedFields.keys().length == 0) {
-                        saveButton.disable();
-                        saveButton.setStyle({backgroundColor: 'white'});
-                    }
-                } else {
-                    this.addClassName('changed');
-                    ChangeManager.changedFields.set(this.name, true);
-                    if (saveButton.disabled) {
-                        saveButton.enable();
-                        ChangeManager.highlightSaveButton(saveButton);
-                    }
-                }
-                return true; // have the browser also handle this event
-            },
-            highlightSaveButton: function(saveButton) {
-                new Effect.Highlight(saveButton, { startcolor: '#ffaa00', endcolor: '#ffff99', restorecolor: '#ffff99' });
-            }
-        };
+        $(document).observe('dom:loaded', function() {ExpandManager.init()});
+        $(document).observe('dom:loaded', function() {ChangeManager.init($('htmlForm'), $$('input.save')[0], [])});
+    </script>
+    <script type="text/javascript">
         var ExpandManager = {
             init: function() {
                 $('changePasswordToggle').show();
@@ -102,7 +50,7 @@
         }
     </script>
 </head>
-<body onload="doOnLoad()">
+<body>
 <div class="body">
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>

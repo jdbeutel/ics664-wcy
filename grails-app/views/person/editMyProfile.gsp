@@ -10,6 +10,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <title>My Profile</title>
+        <g:javascript library="scriptaculous"/>
+        <g:javascript src="changeManager.js"/>
+        <script type="text/javascript">
+            $(document).observe('dom:loaded', function() {ChangeManager.init($('htmlForm'), $$('input.save')[0], [])});
+        </script>
     </head>
     <body>
         <div class="body">
@@ -21,7 +26,7 @@
                 <g:renderErrors bean="${personInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:uploadForm method="post" >
+            <g:uploadForm name="htmlForm" method="post" >
                 <div class="dialog">
                     <table>
                         <tbody>
