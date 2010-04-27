@@ -16,7 +16,7 @@ html * {
     background-color: #ffff99;
 }
 
-.expander {
+a.expander {
     background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
     border: 1px solid #ccc;
     color: #666;
@@ -28,6 +28,10 @@ html * {
     margin-left: 3px;
     overflow: visible;
     padding: 2px 6px;
+    text-decoration: none;
+}
+a.expander:hover {
+    color: #666;
 }
 
 .requiredLegend {
