@@ -33,6 +33,8 @@ var ChangeManager = {
             ChangeManager.highlightSaveButton();
         }
         $$('input, select').invoke('observe', 'change', ChangeManager.handleChange);
+        // onkeypress looks at the previous result, but that's still better than just onchange
+        $$('input, select').invoke('observe', 'keypress', ChangeManager.handleChange);
         return true; // have the browser also handle this event
     },
     handleChange: function(/*event*/) {
@@ -57,4 +59,3 @@ var ChangeManager = {
         new Effect.Highlight(ChangeManager.saveButton, { startcolor: '#ffaa00', endcolor: '#ffff99', restorecolor: '#ffff99' });
     }
 };
-

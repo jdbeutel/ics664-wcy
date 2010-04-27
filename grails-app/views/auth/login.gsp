@@ -11,7 +11,7 @@
     <title>Login</title>
 </head>
 <body>
-<div class="body">
+<div class="body login">
     <auth:ifLoggedIn>
         You are currently logged in as: <auth:user/>
         <g:if test="${flash.authenticationFailure}">
@@ -32,33 +32,55 @@
 </auth:ifUnconfirmed>
 --}%
     <auth:ifNotLoggedIn>
-        <g:if test="${flash.authenticationFailure}">
+        <g:if test="${flash.authenticationFailure || hasErrors(bean: flash.loginFormErrors, true)}">
+            %{-- get all the errors together into the same list for display --}%
+            <g:if test="${flash.authenticationFailure}">
+                %{ flash.loginFormErrors = flash.loginFormErrors ?: flash.loginForm.errors;
+                   flash.loginFormErrors.reject(
+                    "authentication.failure.${flash.authenticationFailure.result}",
+                    "Login failed: " + message(code:"authentication.failure.${flash.authenticationFailure.result}")
+                ) }%
+            </g:if>
             <div class="errors">
-                <ul><li>Login failed: <g:message code="authentication.failure.${flash.authenticationFailure.result}"/></li></ul>
+                <g:renderErrors bean="${flash.loginFormErrors}" as="list"/>
             </div>
         </g:if>
 
         <h2>Please log in</h2>
         <auth:form authAction="login" success="[controller:'contact', action:'index']" error="[controller:'auth', action:'login']">
-            <label for="login">Email Address</label> <g:textField id="login" name="login" size="42" value="${flash.loginForm?.login?.encodeAsHTML()}"/><br/>
-            <g:hasErrors bean="${flash.loginFormErrors}" field="login">
-                <div class="errors">
-                    <g:renderErrors bean="${flash.loginFormErrors}" as="list" field="login"/>
-                </div>
-            </g:hasErrors>
-            <label for="password">Password</label> <input id="password" name="password" value="" type="password"/><br/>
-            <g:hasErrors bean="${flash.loginFormErrors}" field="password">
-                <div class="errors">
-                    <g:renderErrors bean="${flash.loginFormErrors}" as="list" field="password"/>
-                </div>
-            </g:hasErrors>
+           <div class="dialog">
+           <table>
+               <tbody>
+               <tr class="prop">
+                   <td valign="top" class="name">
+                        <label for="login">Email Address</label>
+                    </td>
+                    <td valign="top" class="value ${hasErrors(bean: flash.loginFormErrors, field: 'login', 'errors')}">
+                        <g:textField id="login" name="login" size="42" value="${flash.loginForm?.login?.encodeAsHTML()}"/>
+                    </td>
+                </tr>
+                <tr class="prop">
+                    <td valign="top" class="name">
+                        <label for="password">Password</label>
+                    </td>
+                    <td valign="top" class="value ${hasErrors(bean: flash.loginFormErrors, field: 'login', 'errors')}">
+                        <input id="password" name="password" value="" type="password"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
             <div class="buttons">
                 <g:actionSubmit value="Log in" class="save"/>
             </div>
         </auth:form>
 
-        <g:link action="forgot">Forgot password</g:link><br/>
-        <g:link action="signup">Sign up for new account</g:link>
+        <div>
+            <g:link action="forgot">Forgot password</g:link>
+        </div>
+        <div>
+            <g:link action="signup">Sign up for new account</g:link>
+        </div>
     </auth:ifNotLoggedIn>
 </div>
 </body>

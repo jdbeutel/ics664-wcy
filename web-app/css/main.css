@@ -34,6 +34,12 @@ html * {
     text-align: right;
 }
 
+.login a {
+    float: right;
+    clear: right;
+    padding-top: 10px;
+}
+
 /* GENERAL */
 
 .spinner {
@@ -54,10 +60,13 @@ body {
     padding-left:20px;
 }
 
-a:link, a:visited, a:hover {
+a:link, a:visited {
     color: #666;
     font-weight: bold;
-    text-decoration: none;
+}
+
+a:hover {
+    color: blue;
 }
 
 h1 {
@@ -260,7 +269,7 @@ th.desc a {
     padding: 5px;
 }
 .prop .name {
-    text-align: left;
+    text-align: right;
     width: 15%;
     white-space: nowrap;
 }
