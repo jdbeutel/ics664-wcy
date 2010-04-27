@@ -34,10 +34,17 @@ class AuthController {
             return
         }
         MultipartFile uploadedFile = request.getFile('photoUpload')
-        if (uploadedFile) { // avoids overwriting existing photo if not uploading a new one
+        if (uploadedFile?.size) { // avoids overwriting existing photo if not uploading a new one
             // todo: if (uploadedFile.size > UPLOAD_LIMIT) { flash.message = "Photo too big" ... }
             params.photo = uploadedFile.bytes
             params.photoFileName = PersonController.getOriginalFileName(uploadedFile)
+        }
+        // todo: remember photo from previous tries and provide it for display
+        // todo: validate file image format and scale down if too big?
+        if (!params.photo) {
+            p.errors.rejectValue("photo", "signupForm.photo.blank")
+            render(view:'signup', model:[personInstance:p, signupForm:sf]) // try again
+            return
         }
         def signupResult = authenticationService.signup( login:sf.login,
                 password:sf.password, email:sf.email, immediate:true, extraParams:params)

@@ -119,6 +119,8 @@ class PersonController {
                 personInstance.photo = uploadedFile.bytes
                 personInstance.photoFileName = getOriginalFileName(uploadedFile)
             }
+            // todo: remember photo from previous tries and provide it for display
+            // todo: validate file image format and scale down if too big?
             if (!personInstance.hasErrors() && personInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'person.label', default: 'Person'), personInstance.id])}"
                 redirect(action: "editMyProfile", id: personInstance.id) // success, but always editing

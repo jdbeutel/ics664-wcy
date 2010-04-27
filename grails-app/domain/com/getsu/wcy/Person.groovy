@@ -15,7 +15,7 @@ class Person {
     String suffix // e.g. Jr., III, Sr., M.D., Ph.D.
 
     byte[] photo
-    String photoFileName // for format clues in the file name extension
+    String photoFileName // keep for format clues in the file name extension?
     Date birthDate
 
     String originalValuesJSON
