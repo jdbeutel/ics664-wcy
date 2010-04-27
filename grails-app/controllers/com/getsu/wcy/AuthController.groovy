@@ -65,7 +65,9 @@ class AuthController {
     }
 
     def logout = {
-        authenticationService.logout( authenticationService.sessionUser )
+        if (authenticationService.isLoggedIn(request) && authenticationService.sessionUser) {
+            authenticationService.logout( authenticationService.sessionUser )
+        }
     }
 
     def forgot = { }
