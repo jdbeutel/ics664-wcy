@@ -54,36 +54,41 @@
                     <table>
                         <tbody>
                         <tr class="prop">
-                            <td valign="top" class="name">
+                            <td valign="top" class="required name">
                                 <label for="login">Email</label>
                             </td>
-                            <td valign="top" class="value ${hasErrors(bean: signupForm, field: 'login', 'errors')}">
-                                <g:textField name="login" size="42" value="${signupForm?.login}" />
+                            <td valign="top" class="required value ${hasErrors(bean: signupForm, field: 'login', 'errors')}">
+                                <g:textField name="login" size="42" value="${signupForm?.login}" /> <wcy:required/>
                             </td>
                         </tr>
 
                         <g:hiddenField name="email" value="ignored@example.com"/>
 
                         <tr class="prop">
-                            <td valign="top" class="name">
+                            <td valign="top" class="required name">
                                 <label for="password">Password</label>
                             </td>
-                            <td valign="top" class="value ${hasErrors(bean: signupForm, field: 'password', 'errors')}">
-                                <g:passwordField name="password" value="" />
+                            <td valign="top" class="required value ${hasErrors(bean: signupForm, field: 'password', 'errors')}">
+                                <g:passwordField name="password" value="" /> <wcy:required/>
                             </td>
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="name">
+                            <td valign="top" class="required name">
                                 <label for="passwordConfirm">Confirm password</label>
                             </td>
-                            <td valign="top" class="value ${hasErrors(bean: signupForm, field: 'passwordConfirm', 'errors')}">
-                                <g:passwordField name="passwordConfirm" value="" />
+                            <td valign="top" class="required value ${hasErrors(bean: signupForm, field: 'passwordConfirm', 'errors')}">
+                                <g:passwordField name="passwordConfirm" value="" /> <wcy:required/>
                             </td>
                         </tr>
 
                         <g:render template="/person/editCore"/>
 
+                        <tr>
+                            <td colspan="2">
+                                <wcy:requiredLegend/>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

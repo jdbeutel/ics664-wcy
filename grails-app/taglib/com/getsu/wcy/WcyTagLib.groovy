@@ -81,4 +81,7 @@ class WcyTagLib {
         def now = new Date()
         df.format(now)
     }
+
+    def required = {out << '*'}
+    def requiredLegend = {out << '<div class="requiredLegend">* required fields</div>'}
 }

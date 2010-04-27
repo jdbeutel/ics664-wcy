@@ -30,6 +30,10 @@ html * {
     padding: 2px 6px;
 }
 
+.requiredLegend {
+    text-align: right;
+}
+
 /* GENERAL */
 
 .spinner {

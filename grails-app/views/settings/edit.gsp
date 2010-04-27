@@ -69,11 +69,11 @@
                 <tbody>
 
                 <tr class="prop">
-                    <td valign="top" class="name">
+                    <td valign="top" class="required name">
                         <label for="loginEmail"><g:message code="settings.loginEmail.label" default="Email Address (for log in)"/></label>
                     </td>
-                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'loginEmail', 'errors')}">
-                        <g:textField name="loginEmail" size="42" value="${settingsForm?.loginEmail}"/>
+                    <td valign="top" class="required value ${hasErrors(bean: settingsForm, field: 'loginEmail', 'errors')}">
+                        <g:textField name="loginEmail" size="42" value="${settingsForm?.loginEmail}"/> <wcy:required/>
                     </td>
                 </tr>
 
@@ -90,29 +90,29 @@
                                     <tbody>
 
                                     <tr class="prop">
-                                        <td valign="top" class="name">
+                                        <td valign="top" class="required name">
                                             <label for="oldPassword"><g:message code="settings.oldPassword.label" default="Current Password"/></label>
                                         </td>
-                                        <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'oldPassword', 'errors')}">
-                                            <g:passwordField name="oldPassword" value="${settingsForm?.oldPassword}" autocomplete="off"/>
+                                        <td valign="top" class="required value ${hasErrors(bean: settingsForm, field: 'oldPassword', 'errors')}">
+                                            <g:passwordField name="oldPassword" value="${settingsForm?.oldPassword}" autocomplete="off"/> <wcy:required/>
                                         </td>
                                     </tr>
 
                                     <tr class="prop">
-                                        <td valign="top" class="name">
+                                        <td valign="top" class="required name">
                                             <label for="newPassword"><g:message code="settings.newPassword.label" default="New Password"/></label>
                                         </td>
-                                        <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'newPassword', 'errors')}">
-                                            <g:passwordField name="newPassword" value="${settingsForm?.newPassword}" autocomplete="off"/>
+                                        <td valign="top" class="required value ${hasErrors(bean: settingsForm, field: 'newPassword', 'errors')}">
+                                            <g:passwordField name="newPassword" value="${settingsForm?.newPassword}" autocomplete="off"/> <wcy:required/>
                                         </td>
                                     </tr>
 
                                     <tr class="prop">
-                                        <td valign="top" class="name">
+                                        <td valign="top" class="required name">
                                             <label for="newPasswordConfirm"><g:message code="settings.newPasswordConfirm.label" default="Confirm New Password"/></label>
                                         </td>
-                                        <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'newPasswordConfirm', 'errors')}">
-                                            <g:passwordField name="newPasswordConfirm" value="${settingsForm?.newPasswordConfirm}" autocomplete="off"/>
+                                        <td valign="top" class="required value ${hasErrors(bean: settingsForm, field: 'newPasswordConfirm', 'errors')}">
+                                            <g:passwordField name="newPasswordConfirm" value="${settingsForm?.newPasswordConfirm}" autocomplete="off"/> <wcy:required/>
                                         </td>
                                     </tr>
 
@@ -124,20 +124,26 @@
                 </tr>
 
                 <tr class="prop">
-                    <td valign="top" class="name">
+                    <td valign="top" class="required name">
                         <label for="timeZone"><g:message code="settings.timeZone.label" default="Time Zone"/></label>
                     </td>
-                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'timeZone', 'errors')}">
-                        <wcy:timeZoneSelect name="timeZone" value="${settingsForm?.timeZone}"/>
+                    <td valign="top" class="required value ${hasErrors(bean: settingsForm, field: 'timeZone', 'errors')}">
+                        <wcy:timeZoneSelect name="timeZone" value="${settingsForm?.timeZone}"/> <wcy:required/>
                     </td>
                 </tr>
 
                 <tr class="prop">
-                    <td valign="top" class="name">
+                    <td valign="top" class="required name">
                         <label for="dateFormat"><g:message code="settings.dateFormat.label" default="Date Format"/></label>
                     </td>
-                    <td valign="top" class="value ${hasErrors(bean: settingsForm, field: 'dateFormat', 'errors')}">
-                        <wcy:dateFormatSelect name="dateFormat" value="${settingsForm?.dateFormat}"/>
+                    <td valign="top" class="required value ${hasErrors(bean: settingsForm, field: 'dateFormat', 'errors')}">
+                        <wcy:dateFormatSelect name="dateFormat" value="${settingsForm?.dateFormat}"/> <wcy:required/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <wcy:requiredLegend/>
                     </td>
                 </tr>
 

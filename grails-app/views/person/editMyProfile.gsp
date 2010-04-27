@@ -31,6 +31,11 @@
                     <table>
                         <tbody>
                             <g:render template="/person/editCore"/>
+                            <tr>
+                                <td colspan="2">
+                                    <wcy:requiredLegend/>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

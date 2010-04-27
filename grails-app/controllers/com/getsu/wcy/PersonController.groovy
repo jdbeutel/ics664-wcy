@@ -58,13 +58,6 @@ class PersonController {
         }
     }
 
-    def editMyProfile = {
-        assert authenticationService.isLoggedIn(request) // otherwise the filter would have redirected
-        User user = authenticationService.userPrincipal
-        assert user.person // User constraint
-        return [personInstance:user.person]
-    }
-
     def update = {
         def personInstance = Person.get(params.id)
         if (personInstance) {
@@ -92,6 +85,13 @@ class PersonController {
         }
     }
 
+    def editMyProfile = {
+        assert authenticationService.isLoggedIn(request) // otherwise the filter would have redirected
+        User user = authenticationService.userPrincipal
+        assert user.person // User constraint
+        return [personInstance:user.person]
+    }
+
     public static getOriginalFileName(MultipartFile uploadedFile) {
         char otherSeparatorChar = (char) (File.separatorChar == '/' ? '\\' : '/')
         return new File(uploadedFile.originalFilename.replace(otherSeparatorChar, File.separatorChar)).name
@@ -113,8 +113,10 @@ class PersonController {
                 }
             }
             personInstance.properties = params
-            MultipartFile uploadedFile = request.getFile('photo')
-            if (uploadedFile) {
+            MultipartFile uploadedFile = request.getFile('photoUpload')
+            if (uploadedFile?.size) { // avoids overwriting existing photo if not uploading a new one
+                // todo: if (uploadedFile.size > UPLOAD_LIMIT) { flash.message = "Photo too big" ... }
+                personInstance.photo = uploadedFile.bytes
                 personInstance.photoFileName = getOriginalFileName(uploadedFile)
             }
             if (!personInstance.hasErrors() && personInstance.save(flush: true)) {

@@ -25,11 +25,11 @@
 </tr>
 
 <tr class="prop">
-    <td valign="top" class="name">
+    <td valign="top" class="required name">
         <label for="firstGivenName"><g:message code="person.firstGivenName.label" default="First Name" /></label>
     </td>
-    <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'firstGivenName', 'errors')}">
-        <g:textField name="firstGivenName" value="${personInstance?.firstGivenName}" />
+    <td valign="top" class="required value ${hasErrors(bean: personInstance, field: 'firstGivenName', 'errors')}">
+        <g:textField name="firstGivenName" value="${personInstance?.firstGivenName}" /> <wcy:required/>
     </td>
 </tr>
 
@@ -43,11 +43,11 @@
 </tr>
 
 <tr class="prop">
-    <td valign="top" class="name">
+    <td valign="top" class="required name">
         <label for="familyName"><g:message code="person.familyName.label" default="Last Name" /></label>
     </td>
-    <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'familyName', 'errors')}">
-        <g:textField name="familyName" value="${personInstance?.familyName}" />
+    <td valign="top" class="required value ${hasErrors(bean: personInstance, field: 'familyName', 'errors')}">
+        <g:textField name="familyName" value="${personInstance?.familyName}" /> <wcy:required/>
     </td>
 </tr>
 
@@ -61,16 +61,16 @@
 </tr>
 
 <tr class="prop">
-    <td valign="top" class="name">
-        <label for="photo"><g:message code="person.photo.label" default="Photo" /></label>
+    <td valign="top" class="required name">
+        <label for="photoUpload"><g:message code="person.photo.label" default="Photo" /></label>
     </td>
-    <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'photo', 'errors')}">
+    <td valign="top" class="required value ${hasErrors(bean: personInstance, field: 'photo', 'errors')}">
         <g:if test="${personInstance?.photo}">
             <img alt="photo" width="200px" height="150px" class="photo"
                     src="${createLink(controller:'person', action:'viewPhoto', id:personInstance?.id)}" />
             <br/>
         </g:if>
-        <input type="file" name="photo"/>
+        <input type="file" id="photoUpload" name="photoUpload"/> <wcy:required/>
     </td>
 </tr>
 
