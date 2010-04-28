@@ -42,11 +42,18 @@
                             <td valign="top" class="value">${fieldValue(bean: personInstance, field: "honorific")}</td>
                             
                         </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="person.givenNames.label" default="Given Names" /></td>
+
+                    <tr class="prop">
+                      <td valign="top" class="name"><g:message code="person.firstGivenName.label" default="First Name" /></td>
+
+                      <td valign="top" class="value">${fieldValue(bean: personInstance, field: "firstGivenName")}</td>
+
+                    </tr>
+
+                    <tr class="prop">
+                            <td valign="top" class="name"><g:message code="person.middleGivenNames.label" default="Middle Names" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: personInstance, field: "givenNames")}</td>
+                            <td valign="top" class="value">${fieldValue(bean: personInstance, field: "middleGivenNames")}</td>
                             
                         </tr>
                     
@@ -67,7 +74,13 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="person.photo.label" default="Photo" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: personInstance, field: "photo")}</td>
+                            <td valign="top" class="value">
+                              <g:if test="${personInstance?.photo}">
+                                <img alt="photo" width="200px" height="150px" class="photo"
+                                      src="${createLink(controller:'person', action:'viewPhoto', id:personInstance?.id)}" />
+                                <br/>
+                              </g:if>
+                            </td>
                             
                         </tr>
                     
@@ -79,11 +92,11 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="person.places.label" default="Places" /></td>
+                            <td valign="top" class="name"><g:message code="person.connections.label" default="Places" /></td>
                             
                             <td valign="top" style="text-align: left;" class="value">
                                 <ul>
-                                <g:each in="${personInstance.places}" var="p">
+                                <g:each in="${personInstance.connections}" var="p">
                                     <li><g:link controller="connection" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
                                 </g:each>
                                 </ul>

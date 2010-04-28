@@ -33,9 +33,11 @@
                         
                             <g:sortableColumn property="honorific" title="${message(code: 'person.honorific.label', default: 'Honorific')}" />
                         
-                            <g:sortableColumn property="givenNames" title="${message(code: 'person.givenNames.label', default: 'Given Names')}" />
-                        
-                            <g:sortableColumn property="familyName" title="${message(code: 'person.familyName.label', default: 'Family Name')}" />
+                            <g:sortableColumn property="firstGivenName" title="${message(code: 'person.firstGivenName.label', default: 'First Name')}" />
+
+                            <g:sortableColumn property="middleGivenNames" title="${message(code: 'person.middleGivenNames.label', default: 'Middle Names')}" />
+
+                            <g:sortableColumn property="familyName" title="${message(code: 'person.familyName.label', default: 'Last Name')}" />
                         
                             <g:sortableColumn property="suffix" title="${message(code: 'person.suffix.label', default: 'Suffix')}" />
                         
@@ -50,8 +52,10 @@
                             <td>${fieldValue(bean: personInstance, field: "preferredName")}</td>
                         
                             <td>${fieldValue(bean: personInstance, field: "honorific")}</td>
-                        
-                            <td>${fieldValue(bean: personInstance, field: "givenNames")}</td>
+
+                          <td>${fieldValue(bean: personInstance, field: "firstGivenName")}</td>
+
+                          <td>${fieldValue(bean: personInstance, field: "middleGivenNames")}</td>
                         
                             <td>${fieldValue(bean: personInstance, field: "familyName")}</td>
                         
