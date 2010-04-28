@@ -19,7 +19,10 @@ class PhysicalAddress {
 
     static constraints = {
         line1 blank:false
+        line2 nullable:true
         city blank:false
         state blank:false
+        postalCode nullable:true
+        countryCode nullable:true
     }
 }

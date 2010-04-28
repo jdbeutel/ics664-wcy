@@ -11,7 +11,7 @@ import grails.validation.ValidationException
 class UserIntegrationTests extends GrailsUnitTestCase {
 
     void testSave() {
-        User u = User.createInstance('foo@bar.com')
+        User u = User.createSignupInstance('foo@bar.com')
         u.password = 'my password'
         if (!u.save(flush:true)) {
             fail(u.errors.allErrors.collect {it.code}.join(', '))
@@ -20,9 +20,9 @@ class UserIntegrationTests extends GrailsUnitTestCase {
     }
 
     void testValidatePerson() {
-        User u = User.createInstance('foo@bar.com')
+        User u = User.createSignupInstance('foo@bar.com')
         u.password = 'my password'
-        u.person.givenNames = ''
+        u.person.firstGivenName = ''
         assert !u.person.validate()
         assert u.person.errors.allErrors.collect {it.code}.contains('blank')
         assert u.validate()
