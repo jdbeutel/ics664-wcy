@@ -22,7 +22,7 @@ class UserIntegrationTests extends GrailsUnitTestCase {
     void testValidatePerson() {
         User u = User.createSignupInstance('foo@bar.com')
         u.password = 'my password'
-        u.person.firstGivenName = ''
+        u.person.firstGivenName = '' // looking for the blank error
         assert !u.person.validate()
         assert u.person.errors.allErrors.collect {it.code}.contains('blank')
         assert u.validate()

@@ -24,7 +24,7 @@ class BootStrap {
 
          environments {
              development {
-                 def a = new PhysicalAddress(line1:'123 King St.', city:'Honolulu', state:'HI', street:true)
+                 def a = new PhysicalAddress(line1:'123 King St.', city:'Honolulu', state:'HI', streetType:true)
                  a.save(failOnError:true)
                  def home = new Place().addToAddresses(a)
                  home.save(failOnError:true)
@@ -37,7 +37,7 @@ class BootStrap {
                  u.person.photoFileName = 'ben-tea.JPG'
                  def c = new Connection(place:home, type:ConnectionType.HOME)
                  c.save(failOnError:true)
-                 u.person.addToPlaces(c)
+                 u.person.addToConnections(c)
                  u.save(failOnError:true)
              }
          }

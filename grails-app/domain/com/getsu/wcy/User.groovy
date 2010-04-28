@@ -6,6 +6,7 @@
 package com.getsu.wcy
 
 import java.text.SimpleDateFormat
+import com.getsu.wcy.Connection.ConnectionType
 
 class User {
 
@@ -26,13 +27,24 @@ class User {
     static transients = ['email']
 
     static User createSignupInstance(String loginID) {
-        def p = new Person(firstGivenName:'John', familyName:'Doe')
+        // The authentication plugin saves the User before we can save its Person and Settings,
+        // so start with these temporary values to satisfy constraints.
+        def address = new PhysicalAddress(city:'during signup', state:'HI', streetType:true)
+        def home = new Place().addToAddresses(address)
+        def connection = new Connection(place:home, type:ConnectionType.HOME)
+        def p = new Person(firstGivenName:'during signup', familyName:'during signup')
         def s = new Settings( dateFormat:new SimpleDateFormat('yyyy-MM-dd HH:mm'), timeZone:TimeZone.default )
-        return new User(login:loginID, person:p, settings:s)
+        def u = new User(login:loginID, person:p, settings:s)
+        u.person.addToConnections(connection)
+        return u
     }
 
     def beforeInsert() { // GORM event hook
         // todo: withNewSession?
-        person.save(failOnError:true) // this wasn't automatic because not all Person belongsTo User
+        // todo: mapping cascades instead?
+        // GORM doesn't automatically because a Place may be in more than one Connection
+        person.connections.each { it.place.save(failOnError:true) }
+        // GORM doesn't automatically because not all Person belongsTo User
+        person.save(failOnError:true)
     }
 }

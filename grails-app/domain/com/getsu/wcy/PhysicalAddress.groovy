@@ -14,11 +14,13 @@ class PhysicalAddress {
     String postalCode // ZIP-code
     String countryCode
 
-    boolean postal
-    boolean street // for FedEx or Google maps, not a P.O. Box
+    boolean postalType
+    boolean streetType // for FedEx or Google maps, not a P.O. Box
+
+    static belongsTo = Place
 
     static constraints = {
-        line1 blank:false
+        line1 nullable:true
         line2 nullable:true
         city blank:false
         state blank:false

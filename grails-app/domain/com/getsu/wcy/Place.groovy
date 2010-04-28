@@ -10,8 +10,11 @@ package com.getsu.wcy
  */
 class Place {
 
+    List<PhysicalAddress> addresses
+    List<CommunicationLink> comLinks
+
     static hasMany = [
-            addresses:PhysicalAddress, // may be unknown, or separate postal and street addresses
+            addresses:PhysicalAddress, // may be unknown, or separate postalType and streetType addresses
             comLinks:CommunicationLink // for the whole place, not individual connections to it
     ]
 

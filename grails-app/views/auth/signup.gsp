@@ -84,6 +84,28 @@
 
                         <g:render template="/person/editCore"/>
 
+                        <tr class="prop">
+                            <td valign="top" class="required name">
+                                <label for="connections[0].place.addresses[0].city">Home City</label>
+                            </td>
+                            <td valign="top" class="required value ${hasErrors(bean: personInstance, field: 'connections[0].place.addresses[0].city', 'errors')}">
+                                <g:hiddenField name="connections[0].type" value="HOME" /> %{-- constraint --}%
+                                <g:hiddenField name="connections[0].place.addresses[0].streetType" value="true" /> %{-- force bind to create, for easier validation --}%
+                                <g:textField name="connections[0].place.addresses[0].city"
+                                        value="${personInstance?.connections?.first()?.place?.addresses?.first()?.city}" /> <wcy:required/>
+                            </td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="required name">
+                                <label for="connections[0].place.addresses[0].state">Home State</label>
+                            </td>
+                            <td valign="top" class="required value ${hasErrors(bean: personInstance, field: 'connections[0].place.addresses[0].state', 'errors')}">
+                                <g:textField name="connections[0].place.addresses[0].state"
+                                        value="${personInstance?.connections?.first()?.place?.addresses?.first()?.state}" /> <wcy:required/>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td colspan="2">
                                 <wcy:requiredLegend/>
