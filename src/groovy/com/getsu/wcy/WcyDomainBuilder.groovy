@@ -12,7 +12,6 @@ import org.codehaus.groovy.runtime.InvokerHelper
 
 class WcyDomainBuilder extends DomainBuilder {
     public WcyDomainBuilder() {
-        super() // todo: isn't this implicit?
         setRelationNameResolver(new WcyRelationNameResolver());
     }
 }
