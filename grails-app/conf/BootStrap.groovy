@@ -39,10 +39,11 @@ class BootStrap {
      }
 
     private static addJoe(Closure passwordEncoder) {
+//        def builder = new ObjectGraphBuilder()
+//        builder.classNameResolver = 'com.getsu.wcy'
+//
         def a = new PhysicalAddress(line1:'123 King St.', city:'Honolulu', state:'HI', streetType:true)
-        a.save(failOnError:true)
         def home = new Place().addToAddresses(a)
-        home.save(failOnError:true)
         def u = User.createSignupInstance('joe.cool@example.com')
         u.password = passwordEncoder('password')
         u.person.firstGivenName = 'Joe'
@@ -51,16 +52,13 @@ class BootStrap {
         u.person.photo = getBytes(BootStrap.class.getResourceAsStream('dev/david-n-ben.JPG'))
         u.person.photoFileName = 'david-n-ben.JPG'
         def c = new Connection(place:home, type:ConnectionType.HOME)
-        c.save(failOnError:true)
         u.person.addToConnections(c)
         u.save(failOnError:true)
     }
 
     private static addJane(Closure passwordEncoder) {
         def a = new PhysicalAddress(line1:'222 Kapiolani Blvd.', city:'Honolulu', state:'HI', streetType:true)
-        a.save(failOnError:true)
         def home = new Place().addToAddresses(a)
-        home.save(failOnError:true)
         def u = User.createSignupInstance('jane.cool@example.com')
         u.password = passwordEncoder('password')
         u.person.firstGivenName = 'Jane'
@@ -68,7 +66,6 @@ class BootStrap {
         u.person.photo = getBytes(BootStrap.class.getResourceAsStream('dev/ben-tea.JPG'))
         u.person.photoFileName = 'ben-tea.JPG'
         def c = new Connection(place:home, type:ConnectionType.HOME)
-        c.save(failOnError:true)
         u.person.addToConnections(c)
         u.save(failOnError:true)
     }
@@ -76,14 +73,11 @@ class BootStrap {
     // not sure why, but had to make this method static to have it found at runtime without any parameters
     private static addGranny() { // no User, only Person
         def a = new PhysicalAddress(line1:'333 Date St.', city:'Honolulu', state:'HI', streetType:true)
-        a.save(failOnError:true)
         def home = new Place().addToAddresses(a)
-        home.save(failOnError:true)
         def person = new Person(firstGivenName:'Bertha', familyName:'Cool')
         person.photo = getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
         person.photoFileName = 'ben-tea.JPG'
         def c = new Connection(place:home, type:ConnectionType.HOME)
-        c.save(failOnError:true)
         person.addToConnections(c)
         person.save(failOnError:true)
     }
