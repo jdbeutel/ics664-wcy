@@ -88,9 +88,11 @@ class BootStrap {
         def joe = User.findByLogin('joe.cool@example.com')
         def jane = User.findByLogin('jane.cool@example.com')
         def granny = Person.findByFirstGivenName('Bertha')
-        new Notification(recipient:joe, date:new Date() - 5, subject:jane, verb:'added', object:granny).save(failOnError:true)
-        new Notification(recipient:joe, date:new Date() - 3, subject:jane, verb:'updated home address', object:granny).save(failOnError:true)
-        new Notification(recipient:joe, date:new Date() - 2, subject:jane, verb:'updated home phone', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:new Date() - 5.7, subject:jane, verb:'shared with you', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:new Date() - 3.5, subject:jane, verb:'updated home address', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:new Date() - 2.05, subject:jane, verb:'added home phone', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:new Date() - 2.04, subject:jane, verb:'updated home phone', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:new Date() - 2.02, subject:jane, verb:'deleted work phone', object:granny).save(failOnError:true)
     }
 
     // from Groovy 1.7.1

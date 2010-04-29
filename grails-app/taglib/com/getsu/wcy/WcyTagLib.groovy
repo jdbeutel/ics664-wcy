@@ -12,6 +12,8 @@ class WcyTagLib {
 
     static namespace='wcy'
 
+    def authenticationService
+
     private static VALID_TIME_ZONES = TimeZone.availableIDs.toList().grep(~/US\/.*/).collect { String id ->
         TimeZone.getTimeZone(id)
     }.unique().sort {it.rawOffset}
@@ -84,4 +86,11 @@ class WcyTagLib {
 
     def required = {out << '*'}
     def requiredLegend = {out << '<div class="requiredLegend">* required fields</div>'}
+
+    def formatDate = {attrs ->
+        User u = authenticationService.userPrincipal
+        String format = u?.settings?.dateFormat?.toPattern()
+        attrs['format'] = format ?: attrs['format']
+        out << g.formatDate(attrs)
+    }
 }

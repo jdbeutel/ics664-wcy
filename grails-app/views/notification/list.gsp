@@ -26,7 +26,7 @@
 
                             <th><g:message code="notification.subject.label" default="Who" /></th>
 
-                          <g:sortableColumn property="verb" title="${message(code: 'notification.verb.label', default: 'What')}" />
+                          <g:sortableColumn property="verb" title="${message(code: 'notification.verb.label', default: 'Did What')}" />
 
                             <th><g:message code="notification.object.label" default="To Whom" /></th>
                    	    
@@ -50,7 +50,7 @@
                               ${fieldValue(bean: notificationInstance, field: "object.familyName")}
                             </td>
                         
-                            <td><g:formatDate date="${notificationInstance.date}" /></td>
+                            <td><wcy:formatDate date="${notificationInstance.date}" /></td>
 
                         </tr>
                     </g:each>
