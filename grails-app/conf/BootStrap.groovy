@@ -18,7 +18,11 @@ class BootStrap {
          events.onNewUserObject = { loginID -> User.createSignupInstance(loginID) }
          events.onSignup = { params ->
              def includes = [ 'preferredName', 'honorific', 'firstGivenName', 'middleGivenNames', 'familyName',
-                     'suffix', 'photo', 'photoFileName', 'birthDate' ]
+                     'suffix', 'photo', 'photoFileName', 'birthDate',
+                     'connections[0].place.addresses[0].city',
+                     'connections[0].place.addresses[0].state',
+                     'connections[0].place.addresses[0].streetType'
+             ]
              params.user.person.properties[includes] = params.params
              params.user.person.save(failOnError:true)
          }
@@ -84,15 +88,22 @@ class BootStrap {
         person.save(failOnError:true)
     }
 
+    private static Date daysFromNow(days) {
+        long DAYS_MILLIS = 1000 * 60 * 60 * 24;
+        Date now = new Date()
+        now.setTime((long)(now.time + days * DAYS_MILLIS))
+        return now
+    }
+
     private static addNotifications() {
         def joe = User.findByLogin('joe.cool@example.com')
         def jane = User.findByLogin('jane.cool@example.com')
         def granny = Person.findByFirstGivenName('Bertha')
-        new Notification(recipient:joe, date:new Date() - 5.7, subject:jane, verb:'shared with you', object:granny).save(failOnError:true)
-        new Notification(recipient:joe, date:new Date() - 3.5, subject:jane, verb:'updated home address', object:granny).save(failOnError:true)
-        new Notification(recipient:joe, date:new Date() - 2.05, subject:jane, verb:'added home phone', object:granny).save(failOnError:true)
-        new Notification(recipient:joe, date:new Date() - 2.04, subject:jane, verb:'updated home phone', object:granny).save(failOnError:true)
-        new Notification(recipient:joe, date:new Date() - 2.02, subject:jane, verb:'deleted work phone', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-5.7), subject:jane, verb:'shared with you', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-3.5), subject:jane, verb:'updated home address', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-2.05), subject:jane, verb:'added home phone', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-2.04), subject:jane, verb:'updated home phone', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-2.02), subject:jane, verb:'deleted work phone', object:granny).save(failOnError:true)
     }
 
     // from Groovy 1.7.1

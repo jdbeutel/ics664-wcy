@@ -3,7 +3,7 @@ import com.getsu.wcy.User
 // authentication plugin
 authenticationUserClass = User
 
-// grails.gorm.failOnError = true // fast fail for testing
+grails.gorm.failOnError = true // fast fail for testing
 
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts

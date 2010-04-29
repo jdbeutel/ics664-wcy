@@ -15,6 +15,10 @@ class Connection {
     static constraints = {
     }
 
+    static mapping = {
+        place cascade:'persist,merge,save-update'
+    }
+
     enum ConnectionType {
         HOME, WORK
     }

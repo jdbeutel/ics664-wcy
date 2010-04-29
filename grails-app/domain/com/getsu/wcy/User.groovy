@@ -24,6 +24,10 @@ class User {
         password blank:false
     }
 
+    static mapping = {
+        person cascade:'persist,merge,save-update'
+    }
+
     static transients = ['email']
 
     static User createSignupInstance(String loginID) {
@@ -37,14 +41,5 @@ class User {
         def u = new User(login:loginID, person:p, settings:s)
         u.person.addToConnections(connection)
         return u
-    }
-
-    def beforeInsert() { // GORM event hook
-        // todo: withNewSession?
-        // todo: mapping cascades instead?
-        // GORM doesn't automatically because a Place may be in more than one Connection
-        person.connections.each { it.place.save(failOnError:true) }
-        // GORM doesn't automatically because not all Person belongsTo User
-        person.save(failOnError:true)
     }
 }
