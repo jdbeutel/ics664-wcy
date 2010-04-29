@@ -5,7 +5,7 @@
  */
 package com.getsu.wcy
 
-class PhysicalAddress {
+class Address {
 
     String line1
     String line2

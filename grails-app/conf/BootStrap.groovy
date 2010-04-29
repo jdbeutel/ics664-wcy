@@ -1,12 +1,15 @@
 import org.springframework.web.context.support.WebApplicationContextUtils
 import com.getsu.wcy.User
-import com.getsu.wcy.PhysicalAddress
+import com.getsu.wcy.Address
 import com.getsu.wcy.Place
 import com.getsu.wcy.Connection
 import com.getsu.wcy.Connection.ConnectionType
 import org.codehaus.groovy.runtime.DefaultGroovyMethodsSupport
 import com.getsu.wcy.Person
 import com.getsu.wcy.Notification
+import grails.util.DomainBuilder
+import java.text.SimpleDateFormat
+import com.getsu.wcy.WcyDomainBuilder
 
 class BootStrap {
 
@@ -39,47 +42,55 @@ class BootStrap {
      }
 
     private static addJoe(Closure passwordEncoder) {
-//        def builder = new ObjectGraphBuilder()
-//        builder.classNameResolver = 'com.getsu.wcy'
-//
-        def a = new PhysicalAddress(line1:'123 King St.', city:'Honolulu', state:'HI', streetType:true)
-        def home = new Place().addToAddresses(a)
-        def u = User.createSignupInstance('joe.cool@example.com')
-        u.password = passwordEncoder('password')
-        u.person.firstGivenName = 'Joe'
-        u.person.middleGivenNames = 'B.'
-        u.person.familyName = 'Cool'
-        u.person.photo = getBytes(BootStrap.class.getResourceAsStream('dev/david-n-ben.JPG'))
-        u.person.photoFileName = 'david-n-ben.JPG'
-        def c = new Connection(place:home, type:ConnectionType.HOME)
-        u.person.addToConnections(c)
-        u.save(failOnError:true)
+        def builder = new WcyDomainBuilder()
+        builder.classNameResolver = 'com.getsu.wcy'
+        def joe = builder.user(login:'joe.cool@example.com', password:passwordEncoder('password')) {
+            person(firstGivenName:'Joe', middleGivenNames:'B.', familyName:'Cool', photoFileName:'david-n-ben.JPG',
+                    photo: getBytes(BootStrap.class.getResourceAsStream('dev/david-n-ben.JPG'))
+            ) {
+                connection(type:ConnectionType.HOME) {
+                    place {
+                        address(streetType:true, line1:'123 King St.', city:'Honolulu', state:'HI')
+                    }
+                }
+            }
+            settings(dateFormat:new SimpleDateFormat('yyyy-MM-dd HH:mm'), timeZone:TimeZone.default )
+        }
+        joe.save(failOnError:true)
     }
 
     private static addJane(Closure passwordEncoder) {
-        def a = new PhysicalAddress(line1:'222 Kapiolani Blvd.', city:'Honolulu', state:'HI', streetType:true)
-        def home = new Place().addToAddresses(a)
-        def u = User.createSignupInstance('jane.cool@example.com')
-        u.password = passwordEncoder('password')
-        u.person.firstGivenName = 'Jane'
-        u.person.familyName = 'Cool'
-        u.person.photo = getBytes(BootStrap.class.getResourceAsStream('dev/ben-tea.JPG'))
-        u.person.photoFileName = 'ben-tea.JPG'
-        def c = new Connection(place:home, type:ConnectionType.HOME)
-        u.person.addToConnections(c)
-        u.save(failOnError:true)
+        def builder = new WcyDomainBuilder()
+        builder.classNameResolver = 'com.getsu.wcy'
+        def jane = builder.user(login:'jane.cool@example.com', password:passwordEncoder('password')) {
+            person(firstGivenName:'Jane', familyName:'Cool', photoFileName:'ben-tea.JPG',
+                    photo: getBytes(BootStrap.class.getResourceAsStream('dev/ben-tea.JPG'))
+            ) {
+                connection(type:ConnectionType.HOME) {
+                    place {
+                        address(streetType:true, line1:'222 Kapiolani Blvd.', city:'Honolulu', state:'HI')
+                    }
+                }
+            }
+            settings(dateFormat:new SimpleDateFormat('yyyy-MM-dd HH:mm'), timeZone:TimeZone.default )
+        }
+        jane.save(failOnError:true)
     }
 
     // not sure why, but had to make this method static to have it found at runtime without any parameters
     private static addGranny() { // no User, only Person
-        def a = new PhysicalAddress(line1:'333 Date St.', city:'Honolulu', state:'HI', streetType:true)
-        def home = new Place().addToAddresses(a)
-        def person = new Person(firstGivenName:'Bertha', familyName:'Cool')
-        person.photo = getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
-        person.photoFileName = 'ben-tea.JPG'
-        def c = new Connection(place:home, type:ConnectionType.HOME)
-        person.addToConnections(c)
-        person.save(failOnError:true)
+        def builder = new WcyDomainBuilder()
+        builder.classNameResolver = 'com.getsu.wcy'
+        def granny = builder.person(firstGivenName:'Bertha', familyName:'Cool', photoFileName:'slippers.JPG',
+                                        photo: getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
+        ) {
+            connection(type:ConnectionType.HOME) {
+                place {
+                    address(streetType:true, line1:'333 Date St.', city:'Honolulu', state:'HI')
+                }
+            }
+        }
+        granny.save(failOnError:true)
     }
 
     private static Date daysFromNow(days) {
@@ -93,6 +104,7 @@ class BootStrap {
         def joe = User.findByLogin('joe.cool@example.com')
         def jane = User.findByLogin('jane.cool@example.com')
         def granny = Person.findByFirstGivenName('Bertha')
+
         new Notification(recipient:joe, date:daysFromNow(-5.7), subject:jane, verb:'shared with you', object:granny).save(failOnError:true)
         new Notification(recipient:joe, date:daysFromNow(-3.5), subject:jane, verb:'updated home address', object:granny).save(failOnError:true)
         new Notification(recipient:joe, date:daysFromNow(-2.05), subject:jane, verb:'added home phone', object:granny).save(failOnError:true)
@@ -120,4 +132,4 @@ class BootStrap {
 
      def destroy = {
      }
-} 
+}

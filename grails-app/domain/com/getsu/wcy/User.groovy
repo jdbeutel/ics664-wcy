@@ -33,7 +33,7 @@ class User {
     static User createSignupInstance(String loginID) {
         // The authentication plugin saves the User before we can save its Person and Settings,
         // so start with these temporary values to satisfy constraints.
-        def address = new PhysicalAddress(city:'during signup', state:'HI', streetType:true)
+        def address = new Address(city:'during signup', state:'HI', streetType:true)
         def home = new Place().addToAddresses(address)
         def connection = new Connection(place:home, type:ConnectionType.HOME)
         def p = new Person(firstGivenName:'during signup', familyName:'during signup')
