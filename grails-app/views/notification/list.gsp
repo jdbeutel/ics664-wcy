@@ -39,15 +39,13 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
                             <td>
-                              ${fieldValue(bean: notificationInstance, field: "subject.person.firstGivenName")}
-                              ${fieldValue(bean: notificationInstance, field: "subject.person.familyName")}
+                              ${fieldValue(bean: notificationInstance, field: "subject.person.name")}
                             </td>
 
                           <td>${fieldValue(bean: notificationInstance, field: "verb")}</td>
 
                             <td>
-                              ${fieldValue(bean: notificationInstance, field: "object.firstGivenName")}
-                              ${fieldValue(bean: notificationInstance, field: "object.familyName")}
+                              ${fieldValue(bean: notificationInstance, field: "object.name")}
                             </td>
                         
                             <td><wcy:formatDate date="${notificationInstance.date}" /></td>

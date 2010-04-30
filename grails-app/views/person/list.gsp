@@ -27,39 +27,16 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'person.id.label', default: 'Id')}" />
-                        
-                            <g:sortableColumn property="preferredName" title="${message(code: 'person.preferredName.label', default: 'Preferred Name')}" />
-                        
-                            <g:sortableColumn property="honorific" title="${message(code: 'person.honorific.label', default: 'Honorific')}" />
-                        
-                            <g:sortableColumn property="firstGivenName" title="${message(code: 'person.firstGivenName.label', default: 'First Name')}" />
+                            <!-- sortableColumn must be a field that GORM can sort on -->
+                            <g:sortableColumn property="name" title="${message(code: 'person.name.label', default: 'Name')}" />
 
-                            <g:sortableColumn property="middleGivenNames" title="${message(code: 'person.middleGivenNames.label', default: 'Middle Names')}" />
-
-                            <g:sortableColumn property="familyName" title="${message(code: 'person.familyName.label', default: 'Last Name')}" />
-                        
-                            <g:sortableColumn property="suffix" title="${message(code: 'person.suffix.label', default: 'Suffix')}" />
-                        
                         </tr>
                     </thead>
                     <tbody>
                     <g:each in="${personInstanceList}" status="i" var="personInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${personInstance.id}">${fieldValue(bean: personInstance, field: "id")}</g:link></td>
-                        
-                            <td>${fieldValue(bean: personInstance, field: "preferredName")}</td>
-                        
-                            <td>${fieldValue(bean: personInstance, field: "honorific")}</td>
-
-                          <td>${fieldValue(bean: personInstance, field: "firstGivenName")}</td>
-
-                          <td>${fieldValue(bean: personInstance, field: "middleGivenNames")}</td>
-                        
-                            <td>${fieldValue(bean: personInstance, field: "familyName")}</td>
-                        
-                            <td>${fieldValue(bean: personInstance, field: "suffix")}</td>
+                            <td>${fieldValue(bean: personInstance, field: "name")}</td>
                         
                         </tr>
                     </g:each>

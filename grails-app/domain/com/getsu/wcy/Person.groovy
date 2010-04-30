@@ -61,4 +61,8 @@ class Person {
         skypeNames cascade:'persist,merge,save-update'
         twitterNames cascade:'persist,merge,save-update'
     }
+
+    String name // generated property, persisted for GORM sorting by <g:sortableColumn>
+    String getName() { "${preferredName ?: firstGivenName} ${familyName}" }
+    @Deprecated void setName(String ignored) {}
 }
