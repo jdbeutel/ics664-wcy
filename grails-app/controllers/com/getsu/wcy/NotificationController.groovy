@@ -15,8 +15,29 @@ class NotificationController {
     def list = {
         assert authenticationService.isLoggedIn(request) // otherwise the filter would have redirected
         User user = authenticationService.userPrincipal
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [notificationInstanceList: Notification.findAllByRecipient(user, params), notificationInstanceTotal: Notification.countByRecipient(user)]
+        params.max = Math.min(params.max ? params.int('max') : 10, 100) // defends against too big (DOS attack)
+        def notificationInstanceList = Notification.withCriteria {
+            eq 'recipient', user
+            maxResults(params.max?.toInteger())
+            firstResult(params.offset?.toInteger() ?: 0)
+            switch (params.sort) {
+                case 'subject.person.name':
+                    subject {
+                        person {
+                            order('name', params.order)
+                        }
+                    }
+                    break;
+                case 'object.name':
+                    object {
+                        order('name', params.order)
+                    }
+                    break;
+                default:
+                    order(params.sort ?: 'date', params.order ?: 'desc')
+            }
+        }
+        [notificationInstanceList:notificationInstanceList, notificationInstanceTotal: Notification.countByRecipient(user)]
     }
 
     def create = {

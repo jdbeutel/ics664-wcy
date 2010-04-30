@@ -24,12 +24,12 @@
                         <tr>
                         
 
-                            <th><g:message code="notification.subject.label" default="Who" /></th>
+                          <g:sortableColumn property="subject.person.name" title="${message(code: 'notification.subject.person.name.label', default: 'Who')}" />
 
                           <g:sortableColumn property="verb" title="${message(code: 'notification.verb.label', default: 'Did What')}" />
 
-                            <th><g:message code="notification.object.label" default="To Whom" /></th>
-                   	    
+                          <g:sortableColumn property="object.name" title="${message(code: 'notification.object.name.label', default: 'To Whom')}" />
+
                             <g:sortableColumn property="date" title="${message(code: 'notification.date.label', default: 'When')}" />
 
                         </tr>

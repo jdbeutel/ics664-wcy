@@ -118,8 +118,9 @@ class BootStrap {
 
         new Notification(recipient:joe, date:daysFromNow(-5.7), subject:jane, verb:'shared with you', object:granny).save(failOnError:true)
         new Notification(recipient:joe, date:daysFromNow(-3.5), subject:jane, verb:'updated home address', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-4.5), subject:jane, verb:'added email address', object:joe.person).save(failOnError:true)
         new Notification(recipient:joe, date:daysFromNow(-2.05), subject:jane, verb:'added home phone', object:granny).save(failOnError:true)
-        new Notification(recipient:joe, date:daysFromNow(-2.04), subject:jane, verb:'updated home phone', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-2.04), subject:joe, verb:'updated home phone', object:granny).save(failOnError:true)
         new Notification(recipient:joe, date:daysFromNow(-2.02), subject:jane, verb:'deleted work phone', object:granny).save(failOnError:true)
     }
 

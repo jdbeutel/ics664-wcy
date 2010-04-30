@@ -17,8 +17,4 @@ class Notification {
     static constraints = {
         verb blank:false
     }
-
-    static mapping = {
-        sort date:'desc' // most recently first
-    }
 }
