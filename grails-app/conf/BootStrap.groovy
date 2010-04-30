@@ -34,6 +34,7 @@ class BootStrap {
                  addJane(events.onEncodePassword)
                  addCoworker(events.onEncodePassword)
                  addGranny()
+                 addPhoneOnly()
                  addGenericPeople()
                  addNotifications()
              }
@@ -127,6 +128,17 @@ class BootStrap {
             }
         }
         granny.save(failOnError:true)
+    }
+
+    private static addPhoneOnly() { // no User, only Person
+        def builder = new WcyDomainBuilder()
+        builder.classNameResolver = 'com.getsu.wcy'
+        def hal = builder.person(firstGivenName:'Hal', familyName:'Homeless', photoFileName:'slippers.JPG',
+                photo: getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
+        ) {
+            phoneNumber(type:PhoneNumberType.MOBILE, number:'555-8888')
+        }
+        hal.save(failOnError:true)
     }
 
     private static addGenericPeople() { // no User, only Person
