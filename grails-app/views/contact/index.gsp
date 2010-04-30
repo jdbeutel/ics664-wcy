@@ -27,6 +27,8 @@
         <!-- sortableColumn must be a field that GORM can sort on -->
           <g:sortableColumn property="name" title="${message(code: 'person.name.label', default: 'Name')}" />
 
+        <th>Phone</th>
+
       </tr>
       </thead>
       <tbody>
@@ -34,6 +36,11 @@
         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
           <td>${fieldValue(bean: personInstance, field: "name")}</td>
+
+          <td>
+            ${fieldValue(bean: personInstance, field: "preferredPhone.type")}
+            ${fieldValue(bean: personInstance, field: "preferredPhone.number")}
+          </td>
 
         </tr>
       </g:each>

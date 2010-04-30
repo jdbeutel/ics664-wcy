@@ -30,7 +30,7 @@ class Person {
 
     String originalValuesJSON
 
-    static transients = ['originalValuesJSON']
+    static transients = ['originalValuesJSON', 'preferredPhone']
 
     static hasMany = [
             connections:Connection,
@@ -62,7 +62,16 @@ class Person {
         twitterNames cascade:'persist,merge,save-update'
     }
 
-    String name // generated property, persisted for GORM sorting by <g:sortableColumn>
-    String getName() { "${preferredName ?: firstGivenName} ${familyName}" }
+    // generated property, persisted for GORM sorting by <g:sortableColumn>
     @Deprecated void setName(String ignored) {}
+    String getName() { "${preferredName ?: firstGivenName} ${familyName}" }
+
+    // I doubt GORM can persist this (for sortableColumn), because updates of associates
+    // would need to cascade up to trigger updates of Person.
+    PhoneNumber getPreferredPhone() {
+        // todo: user preferences and smarter selection by PhoneNumberType and ConnectionType
+        def firstDegree = (connections?.phoneNumbers).flatten()[0]
+        def secondDegree = (connections?.place?.phoneNumbers).flatten()[0]
+        return phoneNumbers[0] ?: firstDegree ?: secondDegree
+    }
 }
