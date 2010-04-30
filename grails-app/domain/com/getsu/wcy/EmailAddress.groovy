@@ -5,7 +5,7 @@
  */
 package com.getsu.wcy
 
-class EmailAddress extends CommunicationLink {
+class EmailAddress {
 
     String name
     String address

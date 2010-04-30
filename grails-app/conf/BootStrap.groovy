@@ -1,15 +1,12 @@
 import org.springframework.web.context.support.WebApplicationContextUtils
 import com.getsu.wcy.User
-import com.getsu.wcy.Address
-import com.getsu.wcy.Place
-import com.getsu.wcy.Connection
 import com.getsu.wcy.Connection.ConnectionType
 import org.codehaus.groovy.runtime.DefaultGroovyMethodsSupport
 import com.getsu.wcy.Person
 import com.getsu.wcy.Notification
-import grails.util.DomainBuilder
 import java.text.SimpleDateFormat
 import com.getsu.wcy.WcyDomainBuilder
+import com.getsu.wcy.PhoneNumber.PhoneNumberType
 
 class BootStrap {
 
@@ -62,15 +59,28 @@ class BootStrap {
     private static addJane(Closure passwordEncoder) {
         def builder = new WcyDomainBuilder()
         builder.classNameResolver = 'com.getsu.wcy'
-        def jane = builder.user(login:'jane.cool@example.com', password:passwordEncoder('password')) {
+        def jane = builder.user(login:'jane.cool@rr.net', password:passwordEncoder('password')) {
             person(firstGivenName:'Jane', familyName:'Cool', photoFileName:'ben-tea.JPG',
                     photo: getBytes(BootStrap.class.getResourceAsStream('dev/ben-tea.JPG'))
             ) {
                 connection(type:ConnectionType.HOME) {
                     place {
-                        address(streetType:true, line1:'222 Kapiolani Blvd.', city:'Honolulu', state:'HI')
+                        address(streetType:true, postalType:true, line1:'222 Kapiolani Blvd.', city:'Honolulu', state:'HI')
                     }
+                    phoneNumber(type:PhoneNumberType.LANDLINE, number:'555-1111')
                 }
+                connection(type:ConnectionType.WORK) {
+                    place {
+                        address(streetType:true, line1:'42 Nuuanu Ave.', city:'Honolulu', state:'HI')
+                        address(postalType:true, line1:'P.O.Box 1001', city:'Honolulu', state:'HI')
+                        phoneNumber(type:PhoneNumberType.LANDLINE, number:'555-3333')
+                        phoneNumber(type:PhoneNumberType.FAX, number:'555-4444')
+                    }
+                    phoneNumber(type:PhoneNumberType.LANDLINE, number:'555-3333 x123')
+                    emailAddress(name:'Jane Cool, V.P. Sales', address:'jane@foo.com')
+                }
+                phoneNumber(type:PhoneNumberType.MOBILE, number:'555-5555')
+                emailAddress(name:'Jane Cool', address:'jane.cool@rr.net')
             }
             settings(dateFormat:new SimpleDateFormat('yyyy-MM-dd HH:mm'), timeZone:TimeZone.default )
         }
@@ -87,6 +97,7 @@ class BootStrap {
             connection(type:ConnectionType.HOME) {
                 place {
                     address(streetType:true, line1:'333 Date St.', city:'Honolulu', state:'HI')
+                    phoneNumber(type:PhoneNumberType.LANDLINE, number:'555-2222')
                 }
             }
         }
@@ -102,7 +113,7 @@ class BootStrap {
 
     private static addNotifications() {
         def joe = User.findByLogin('joe.cool@example.com')
-        def jane = User.findByLogin('jane.cool@example.com')
+        def jane = User.findByLogin('jane.cool@rr.net')
         def granny = Person.findByFirstGivenName('Bertha')
 
         new Notification(recipient:joe, date:daysFromNow(-5.7), subject:jane, verb:'shared with you', object:granny).save(failOnError:true)

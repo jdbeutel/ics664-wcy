@@ -5,7 +5,7 @@
  */
 package com.getsu.wcy
 
-class PhoneNumber extends CommunicationLink {
+class PhoneNumber {
 
     String number
     PhoneNumberType type

@@ -18,14 +18,28 @@ class Person {
     String photoFileName // keep for format clues in the file name extension?
     Date birthDate
 
-    List<CommunicationLink> comLinks
-    List<Connection> connections
+    List<Connection> connections // to Places
+
+    // personal communication links (separately and statically typed for DomainBuilder at least)
+    List<PhoneNumber> phoneNumbers // e.g., mobile phones
+    List<EmailAddress> emailAddresses
+    List<InstantMessengerAddress> instantMessengerAddresses
+    List<SkypeName> skypeNames
+    List<TwitterName> twitterNames
+    // etc...
 
     String originalValuesJSON
 
     static transients = ['originalValuesJSON']
 
-    static hasMany = [comLinks:CommunicationLink /* e.g. mobile phone or IM */, connections:Connection]
+    static hasMany = [
+            connections:Connection,
+            phoneNumbers:PhoneNumber,
+            emailAddresses:EmailAddress,
+            instantMessengerAddresses:InstantMessengerAddress,
+            skypeNames:SkypeName,
+            twitterNames:TwitterName,
+    ]
 
     static constraints = {
         preferredName nullable:true
@@ -37,5 +51,14 @@ class Person {
         photo nullable:true
         photoFileName nullable:true
         birthDate nullable:true
+    }
+
+    static mapping = {
+        // connections handled by belongsTo = Person in Connection
+        phoneNumbers cascade:'persist,merge,save-update'
+        emailAddresses cascade:'persist,merge,save-update'
+        instantMessengerAddresses cascade:'persist,merge,save-update'
+        skypeNames cascade:'persist,merge,save-update'
+        twitterNames cascade:'persist,merge,save-update'
     }
 }

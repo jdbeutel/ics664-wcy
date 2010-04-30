@@ -109,10 +109,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="comLinks"><g:message code="person.comLinks.label" default="Com Links" /></label>
+                                  <label for="comLinks"><g:message code="person.phoneNumbers.label" default="Phone Numbers" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'comLinks', 'errors')}">
-                                    <g:select name="comLinks" from="${com.getsu.wcy.CommunicationLink.list()}" multiple="yes" optionKey="id" size="5" value="${personInstance?.comLinks}" />
+                                <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'phoneNumbers', 'errors')}">
+                                    <g:select name="comLinks" from="${com.getsu.wcy.PhoneNumber.list()}" multiple="yes" optionKey="id" size="5" value="${personInstance?.comLinks}" />
                                 </td>
                             </tr>
                         

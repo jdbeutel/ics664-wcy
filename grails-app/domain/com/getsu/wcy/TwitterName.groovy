@@ -5,7 +5,7 @@
  */
 package com.getsu.wcy
 
-class TwitterName extends CommunicationLink {
+class TwitterName {
 
     String twitterName
 

@@ -13,6 +13,8 @@ import org.codehaus.groovy.runtime.InvokerHelper
 class WcyDomainBuilder extends DomainBuilder {
     public WcyDomainBuilder() {
         setRelationNameResolver(new WcyRelationNameResolver());
+        setIdentifierResolver 'builderId'
+        setReferenceResolver 'refBuilderId'
     }
 }
 

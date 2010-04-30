@@ -5,7 +5,7 @@
  */
 package com.getsu.wcy
 
-class SkypeName extends CommunicationLink {
+class SkypeName {
 
     String skypeName
 

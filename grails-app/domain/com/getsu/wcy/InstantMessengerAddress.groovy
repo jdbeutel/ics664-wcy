@@ -5,7 +5,7 @@
  */
 package com.getsu.wcy
 
-class InstantMessengerAddress extends CommunicationLink {
+class InstantMessengerAddress {
 
     String network // e.g. AIM
     String name

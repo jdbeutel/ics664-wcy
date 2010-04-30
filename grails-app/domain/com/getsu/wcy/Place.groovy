@@ -11,13 +11,32 @@ package com.getsu.wcy
 class Place {
 
     List<Address> addresses
-    List<CommunicationLink> comLinks
+    // communication links for this whole Place (not specific to any Person)
+    List<PhoneNumber> phoneNumbers // e.g., a home's land-line, an office's reception desk, etc
+    List<EmailAddress> emailAddresses // e.g., an office's support or sales alias
+    List<InstantMessengerAddress> instantMessengerAddresses // some of these types may not be applicable...
+    List<SkypeName> skypeNames
+    List<TwitterName> twitterNames
+    // etc...
 
     static hasMany = [
             addresses:Address, // may be unknown, or separate postalType and streetType addresses
-            comLinks:CommunicationLink // for the whole place, not individual connections to it
+            phoneNumbers:PhoneNumber,
+            emailAddresses:EmailAddress,
+            instantMessengerAddresses:InstantMessengerAddress,
+            skypeNames:SkypeName,
+            twitterNames:TwitterName,
     ]
 
     static constraints = {
+    }
+
+    static mapping = {
+        // addresses handled by belongsTo = Place in Address
+        phoneNumbers cascade:'persist,merge,save-update'
+        emailAddresses cascade:'persist,merge,save-update'
+        instantMessengerAddresses cascade:'persist,merge,save-update'
+        skypeNames cascade:'persist,merge,save-update'
+        twitterNames cascade:'persist,merge,save-update'
     }
 }
