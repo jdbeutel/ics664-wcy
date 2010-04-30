@@ -145,7 +145,7 @@ class BootStrap {
         def builder = new WcyDomainBuilder()
         builder.classNameResolver = 'com.getsu.wcy'
         (10..25).each { index ->
-            def person = builder.person(firstGivenName:"Agent$index", familyName:'Smith', photoFileName:'slippers.JPG',
+            def person = builder.person(firstGivenName:"Test$index", familyName:'Smith', photoFileName:'slippers.JPG',
                                             photo: getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
             ) {
                 connection(type:ConnectionType.HOME) {
@@ -171,7 +171,7 @@ class BootStrap {
         def jane = User.findByLogin('jane.cool@rr.net')
         def coworker = User.findByLogin('coworker@example.com')
         def granny = Person.findByFirstGivenName('Bertha')
-        def agent13 = Person.findByFirstGivenName('Agent13')
+        def agent13 = Person.findByFirstGivenName('Test13')
 
         new Notification(recipient:joe, date:daysFromNow(-5.7), subject:jane, verb:'shared with you', object:granny).save(failOnError:true)
         new Notification(recipient:joe, date:daysFromNow(-3.5), subject:jane, verb:'updated home address', object:granny).save(failOnError:true)

@@ -32,7 +32,7 @@ class Person {
 
     String originalValuesJSON
 
-    static transients = ['originalValuesJSON', 'preferredPhone', 'preferredConnection']
+    static transients = ['originalValuesJSON', 'preferredPhone', 'preferredConnection', 'preferredEmail']
 
     static hasMany = [
             connections:Connection,
@@ -71,6 +71,25 @@ class Person {
 
     // I doubt GORM can persist this (for sortableColumn), because updates of associates
     // would need to cascade up to trigger updates of Person.
+    def getPreferredEmail() {
+        // todo: user preferences and smarter selection by ConnectionType
+        def connectionWithEmail = connections.find {it.emailAddresses}
+        def connectionWithPlaceEmail = connections.find {it.place.emailAddresses}
+        if (emailAddresses[0]) {
+            return [type:'PERSONAL', address:emailAddresses[0].address]
+        } else if (connectionWithEmail) {
+            def c = connectionWithEmail
+            return [type:"$c.type", address:c.emailAddresses[0].address]
+        } else if (connectionWithPlaceEmail) {
+            def c = connectionWithPlaceEmail
+            return [type:"$c.type", address:c.place.emailAddresses[0].address]
+        } else {
+            return null
+        }
+    }
+
+    // I doubt GORM can persist this (for sortableColumn), because updates of associates
+    // would need to cascade up to trigger updates of Person.
     def getPreferredPhone() {
         // todo: user preferences and smarter selection by PhoneNumberType and ConnectionType
         def connectionWithPhoneNumber = connections.find {it.phoneNumbers}
@@ -83,6 +102,8 @@ class Person {
         } else if (connectionWithPlacePhoneNumber) {
             def c = connectionWithPlacePhoneNumber
             return [type:"$c.type ${c.place.phoneNumbers[0].type}", number:c.place.phoneNumbers[0].number]
+        } else {
+            return null
         }
     }
 
