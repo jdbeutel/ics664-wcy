@@ -32,7 +32,9 @@ class BootStrap {
              development {
                  addJoe(events.onEncodePassword)
                  addJane(events.onEncodePassword)
+                 addCoworker(events.onEncodePassword)
                  addGranny()
+                 addGenericPeople()
                  addNotifications()
              }
          }
@@ -87,12 +89,35 @@ class BootStrap {
         jane.save(failOnError:true)
     }
 
+    private static addCoworker(Closure passwordEncoder) {
+        def builder = new WcyDomainBuilder()
+        builder.classNameResolver = 'com.getsu.wcy'
+        def jane = builder.user(login:'coworker@example.com', password:passwordEncoder('password')) {
+            person(firstGivenName:'Alex', familyName:'McFee', photoFileName:'ben-korea.JPG',
+                    photo: getBytes(BootStrap.class.getResourceAsStream('dev/ben-korea.JPG'))
+            ) {
+                connection(type:ConnectionType.WORK) {
+                    place {
+                        address(streetType:true, line1:'76 Pensicola Ave.', city:'Honolulu', state:'HI')
+                        address(postalType:true, line1:'P.O.Box 2002', city:'Honolulu', state:'HI')
+                        phoneNumber(type:PhoneNumberType.FAX, number:'555-7777')
+                        phoneNumber(type:PhoneNumberType.LANDLINE, number:'555-6666')
+                    }
+                    phoneNumber(type:PhoneNumberType.MOBILE, number:'555-3333 x123')
+                    emailAddress(name:'Alex McFee, Engineer', address:'coworker@example.com')
+                }
+            }
+            settings(dateFormat:new SimpleDateFormat('yyyy-MM-dd HH:mm'), timeZone:TimeZone.default )
+        }
+        jane.save(failOnError:true)
+    }
+
     // not sure why, but had to make this method static to have it found at runtime without any parameters
     private static addGranny() { // no User, only Person
         def builder = new WcyDomainBuilder()
         builder.classNameResolver = 'com.getsu.wcy'
         def granny = builder.person(firstGivenName:'Bertha', familyName:'Cool', photoFileName:'slippers.JPG',
-                                        photo: getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
+                photo: getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
         ) {
             connection(type:ConnectionType.HOME) {
                 place {
@@ -102,6 +127,24 @@ class BootStrap {
             }
         }
         granny.save(failOnError:true)
+    }
+
+    private static addGenericPeople() { // no User, only Person
+        def builder = new WcyDomainBuilder()
+        builder.classNameResolver = 'com.getsu.wcy'
+        (10..25).each { index ->
+            def person = builder.person(firstGivenName:"Agent$index", familyName:'Smith', photoFileName:'slippers.JPG',
+                                            photo: getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
+            ) {
+                connection(type:ConnectionType.HOME) {
+                    place {
+                        address(streetType:true, line1:"$index Citron Ave.", city:'Honolulu', state:'HI', postalCode:'96811')
+                        phoneNumber(type:PhoneNumberType.LANDLINE, number:"555-$index$index")
+                    }
+                }
+            }
+            person.save(failOnError:true)
+        }
     }
 
     private static Date daysFromNow(days) {
@@ -114,7 +157,9 @@ class BootStrap {
     private static addNotifications() {
         def joe = User.findByLogin('joe.cool@example.com')
         def jane = User.findByLogin('jane.cool@rr.net')
+        def coworker = User.findByLogin('coworker@example.com')
         def granny = Person.findByFirstGivenName('Bertha')
+        def agent13 = Person.findByFirstGivenName('Agent13')
 
         new Notification(recipient:joe, date:daysFromNow(-5.7), subject:jane, verb:'shared with you', object:granny).save(failOnError:true)
         new Notification(recipient:joe, date:daysFromNow(-3.5), subject:jane, verb:'updated home address', object:granny).save(failOnError:true)
@@ -122,6 +167,10 @@ class BootStrap {
         new Notification(recipient:joe, date:daysFromNow(-2.05), subject:jane, verb:'added home phone', object:granny).save(failOnError:true)
         new Notification(recipient:joe, date:daysFromNow(-2.04), subject:joe, verb:'updated home phone', object:granny).save(failOnError:true)
         new Notification(recipient:joe, date:daysFromNow(-2.02), subject:jane, verb:'deleted work phone', object:granny).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-3.3), subject:jane, verb:'added home phone', object:agent13).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-7.3), subject:coworker, verb:'shared with you', object:coworker.person).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-7.2), subject:coworker, verb:'added work phone', object:coworker.person).save(failOnError:true)
+        new Notification(recipient:joe, date:daysFromNow(-4.1), subject:coworker, verb:'updated work phone', object:coworker.person).save(failOnError:true)
     }
 
     // from Groovy 1.7.1

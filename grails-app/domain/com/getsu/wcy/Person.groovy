@@ -90,8 +90,8 @@ class Person {
     // would need to cascade up to trigger updates of Person.
     Connection getPreferredConnection() {
         // todo: user preferences and smarter selection by ConnectionType and streetType/postalType
-        def home = connections.find {it.type == ConnectionType.HOME}
-        def work = connections.find {it.type == ConnectionType.WORK}
-        return home?.place?.addresses[0] ? home : (work?.place?.addresses[0] ? work : null)
+        def home = connections.find {it.type == ConnectionType.HOME && it.place?.addresses}
+        def work = connections.find {it.type == ConnectionType.WORK && it.place?.addresses}
+        return home ?: work
     }
 }
