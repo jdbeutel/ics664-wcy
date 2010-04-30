@@ -29,6 +29,8 @@
 
         <th>Phone</th>
 
+        <th>Address</th>
+
       </tr>
       </thead>
       <tbody>
@@ -40,6 +42,16 @@
           <td>
             ${fieldValue(bean: personInstance, field: "preferredPhone.type")}
             ${fieldValue(bean: personInstance, field: "preferredPhone.number")}
+          </td>
+
+          <td>
+            ${fieldValue(bean: personInstance, field: "preferredConnection.type")}
+            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "line1")}
+            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "line2")}
+            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "city")},
+            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "state")}
+            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "postalCode")}
+            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "countryCode")}
           </td>
 
         </tr>

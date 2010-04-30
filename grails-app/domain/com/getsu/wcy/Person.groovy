@@ -5,6 +5,8 @@
  */
 package com.getsu.wcy
 
+import com.getsu.wcy.Connection.ConnectionType
+
 class Person {
 
     String preferredName
@@ -30,7 +32,7 @@ class Person {
 
     String originalValuesJSON
 
-    static transients = ['originalValuesJSON', 'preferredPhone']
+    static transients = ['originalValuesJSON', 'preferredPhone', 'preferredConnection']
 
     static hasMany = [
             connections:Connection,
@@ -54,6 +56,7 @@ class Person {
     }
 
     static mapping = {
+        sort name:'asc'
         // connections handled by belongsTo = Person in Connection
         phoneNumbers cascade:'persist,merge,save-update'
         emailAddresses cascade:'persist,merge,save-update'
@@ -68,10 +71,27 @@ class Person {
 
     // I doubt GORM can persist this (for sortableColumn), because updates of associates
     // would need to cascade up to trigger updates of Person.
-    PhoneNumber getPreferredPhone() {
+    def getPreferredPhone() {
         // todo: user preferences and smarter selection by PhoneNumberType and ConnectionType
-        def firstDegree = (connections?.phoneNumbers).flatten()[0]
-        def secondDegree = (connections?.place?.phoneNumbers).flatten()[0]
-        return phoneNumbers[0] ?: firstDegree ?: secondDegree
+        def connectionWithPhoneNumber = connections.find {it.phoneNumbers}
+        def connectionWithPlacePhoneNumber = connections.find {it.place.phoneNumbers}
+        if (phoneNumbers[0]) {
+            return [type:phoneNumbers[0].type, number:phoneNumbers[0].number]
+        } else if (connectionWithPhoneNumber) {
+            def c = connectionWithPhoneNumber
+            return [type:"$c.type ${c.phoneNumbers[0].type}", number:c.phoneNumbers[0].number]
+        } else if (connectionWithPlacePhoneNumber) {
+            def c = connectionWithPlacePhoneNumber
+            return [type:"$c.type ${c.place.phoneNumbers[0].type}", number:c.place.phoneNumbers[0].number]
+        }
+    }
+
+    // I doubt GORM can persist this (for sortableColumn), because updates of associates
+    // would need to cascade up to trigger updates of Person.
+    Connection getPreferredConnection() {
+        // todo: user preferences and smarter selection by ConnectionType and streetType/postalType
+        def home = connections.find {it.type == ConnectionType.HOME}
+        def work = connections.find {it.type == ConnectionType.WORK}
+        return home?.place?.addresses[0] ? home : (work?.place?.addresses[0] ? work : null)
     }
 }
