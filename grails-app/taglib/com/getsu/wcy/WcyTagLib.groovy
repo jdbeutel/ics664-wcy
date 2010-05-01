@@ -14,14 +14,14 @@ class WcyTagLib {
 
     def authenticationService
 
-    private static VALID_TIME_ZONES = TimeZone.availableIDs.toList().grep(~/US\/.*/).collect { String id ->
+    private static VALID_TIME_ZONES = TimeZone.availableIDs.toList().grep(~/US\/.*|Pacific\/Honolulu/).collect { String id ->
         TimeZone.getTimeZone(id)
     }.unique().sort {it.rawOffset}
-// sometimes this prevents start-up
-//    static {
-//        def dtz = TimeZone.default
-//        assert VALID_TIME_ZONES.contains(dtz)
-//    }
+    // sometimes this prevents start-up (because the default is missing?)
+    static {
+        def dtz = TimeZone.default
+        assert VALID_TIME_ZONES.contains(dtz)
+    }
 
     /**
      *  A timeZoneSelect tag with limited options.

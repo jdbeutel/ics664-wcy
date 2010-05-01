@@ -128,7 +128,7 @@
                         <label for="timeZone"><g:message code="settings.timeZone.label" default="Time Zone"/></label>
                     </td>
                     <td valign="top" class="required value ${hasErrors(bean: settingsForm, field: 'timeZone', 'errors')}">
-                        <wcy:timeZoneSelect name="timeZone" value="${settingsForm?.timeZone}"/> <wcy:required/>
+                        <wcy:timeZoneSelect name="timeZone" value="${settingsForm?.timeZone}"/> <!-- redundant wcy:required/-->
                     </td>
                 </tr>
 
@@ -137,7 +137,7 @@
                         <label for="dateFormat"><g:message code="settings.dateFormat.label" default="Date Format"/></label>
                     </td>
                     <td valign="top" class="required value ${hasErrors(bean: settingsForm, field: 'dateFormat', 'errors')}">
-                        <wcy:dateFormatSelect name="dateFormat" value="${settingsForm?.dateFormat}"/> <wcy:required/>
+                        <wcy:dateFormatSelect name="dateFormat" value="${settingsForm?.dateFormat}"/> <!-- redundant wcy:required/-->
                     </td>
                 </tr>
 
