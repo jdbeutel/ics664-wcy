@@ -16,6 +16,7 @@ class NotificationController {
         assert authenticationService.isLoggedIn(request) // otherwise the filter would have redirected
         User user = authenticationService.userPrincipal
         params.max = Math.min(params.max ? params.int('max') : 10, 100) // defends against too big (DOS attack)
+        // to order() on nested properties, cannot use Notification.createCriteria().list(params) { ...
         def notificationInstanceList = Notification.withCriteria {
             eq 'recipient', user
             maxResults(params.max?.toInteger())

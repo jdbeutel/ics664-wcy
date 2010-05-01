@@ -6,6 +6,7 @@
 package com.getsu.wcy
 
 import org.springframework.web.multipart.MultipartFile
+import grails.orm.PagedResultList
 
 class ContactController {
 
@@ -13,7 +14,10 @@ class ContactController {
 
     def index = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [personInstanceList: Person.list(params), personInstanceTotal: Person.count()]
+        def result = Person.createCriteria().list(params) { not { like('name', 'Test%')}}
+        assert result instanceof PagedResultList
+        assert result.totalCount != null
+        [personInstanceList: result, personInstanceTotal: result.totalCount]
     }
 
     def create = {

@@ -3,17 +3,15 @@
   -
   - Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
   --}%
-<%@ page import="com.getsu.wcy.Settings" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: 'directory.label', default: 'Directory')}"/>
-    <title><g:message code="default.edit.label" args="[entityName]"/></title>
+    <title>Directory</title>
 </head>
 <body>
 <div class="body">
-    under construction
+    <g:render template="/person/list"/>
 </div>
 </body>
 </html>

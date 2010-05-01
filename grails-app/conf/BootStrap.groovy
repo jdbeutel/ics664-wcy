@@ -144,7 +144,7 @@ class BootStrap {
     private static addGenericPeople() { // no User, only Person
         def builder = new WcyDomainBuilder()
         builder.classNameResolver = 'com.getsu.wcy'
-        (10..25).each { index ->
+        (10..55).each { index ->
             def person = builder.person(firstGivenName:"Test$index", familyName:'Smith', photoFileName:'slippers.JPG',
                                             photo: getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
             ) {
