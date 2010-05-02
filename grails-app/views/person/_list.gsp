@@ -5,61 +5,61 @@
   --}%
 <%@ page import="com.getsu.wcy.Person" %>
 <g:if test="${flash.message}">
-  <div class="message">${flash.message}</div>
+    <div class="message">${flash.message}</div>
 </g:if>
 <div class="list">
-  <table>
-    <thead>
-    <tr>
+    <table>
+        <thead>
+        <tr>
 
-      <!-- sortableColumn must be a field that GORM can sort on -->
-      <g:sortableColumn property="name" title="${message(code: 'person.name.label', default: 'Name')}"/>
+            <!-- sortableColumn must be a field that GORM can sort on -->
+            <g:sortableColumn property="name" title="${message(code: 'person.name.label', default: 'Name')}"/>
 
-      <th>Email</th>
+            <th>Email</th>
 
-      <th>Phone</th>
+            <th>Phone</th>
 
-      <th>Address</th>
+            <th>Address</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    <g:each in="${personInstanceList}" status="i" var="personInstance">
-      <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+        </tr>
+        </thead>
+        <tbody>
+        <g:each in="${personInstanceList}" status="i" var="personInstance">
+            <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-        <td>${fieldValue(bean: personInstance, field: "name")}</td>
+                <td>${fieldValue(bean: personInstance, field: "name")}</td>
 
-        <td>
-          <g:if test="${personInstance.preferredEmail}">
-            ${fieldValue(bean: personInstance, field: "preferredEmail.type")}
-            ${fieldValue(bean: personInstance, field: "preferredEmail.address")}
-          </g:if>
-        </td>
+                <td>
+                    <g:if test="${personInstance.preferredEmail}">
+                        ${fieldValue(bean: personInstance, field: "preferredEmail.type")}
+                        ${fieldValue(bean: personInstance, field: "preferredEmail.address")}
+                    </g:if>
+                </td>
 
-        <td>
-          <g:if test="${personInstance.preferredPhone}">
-            ${fieldValue(bean: personInstance, field: "preferredPhone.type")}
-            ${fieldValue(bean: personInstance, field: "preferredPhone.number")}
-          </g:if>
-        </td>
+                <td>
+                    <g:if test="${personInstance.preferredPhone}">
+                        ${fieldValue(bean: personInstance, field: "preferredPhone.type")}
+                        ${fieldValue(bean: personInstance, field: "preferredPhone.number")}
+                    </g:if>
+                </td>
 
-        <td>
-          <g:if test="${personInstance.preferredConnection}">
-            ${fieldValue(bean: personInstance.preferredConnection, field: "type")}
-            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "line1")}
-            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "line2")}
-            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "city")},
-            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "state")}
-            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "postalCode")}
-            ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "countryCode")}
-          </g:if>
-        </td>
+                <td>
+                    <g:if test="${personInstance.preferredConnection}">
+                        ${fieldValue(bean: personInstance.preferredConnection, field: "type")}
+                        ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "line1")}
+                        ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "line2")}
+                        ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "city")},
+                        ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "state")}
+                        ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "postalCode")}
+                        ${fieldValue(bean: personInstance.preferredConnection?.place?.addresses[0], field: "countryCode")}
+                    </g:if>
+                </td>
 
-      </tr>
-    </g:each>
-    </tbody>
-  </table>
+            </tr>
+        </g:each>
+        </tbody>
+    </table>
 </div>
 <div class="paginateButtons">
-  <g:paginate total="${personInstanceTotal}"/>
+    <g:paginate total="${personInstanceTotal}"/>
 </div>
