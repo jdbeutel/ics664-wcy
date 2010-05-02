@@ -19,25 +19,16 @@ class Connection {
     // etc...
 
     static belongsTo = Person
-    static hasMany = [
-            phoneNumbers:PhoneNumber,
-            emailAddresses:EmailAddress,
-            instantMessengerAddresses:InstantMessengerAddress,
-            skypeNames:SkypeName,
-            twitterNames:TwitterName,
-    ]
+    static hasMany = CommunicationLinks.hasMany
 
     static constraints = {
         place validator: { it?.validate() }  // work-around to deepValidate for cascade
+        CommunicationLinks.constraints(delegate)
     }
 
     static mapping = {
         place cascade:'persist,merge,save-update' // specified because Place does not belongsTo one Connection
-        phoneNumbers cascade:'persist,merge,save-update'
-        emailAddresses cascade:'persist,merge,save-update'
-        instantMessengerAddresses cascade:'persist,merge,save-update'
-        skypeNames cascade:'persist,merge,save-update'
-        twitterNames cascade:'persist,merge,save-update'
+        CommunicationLinks.mapping(delegate)
     }
 
     enum ConnectionType {

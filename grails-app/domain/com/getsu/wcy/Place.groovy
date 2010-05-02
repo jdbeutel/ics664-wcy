@@ -20,26 +20,18 @@ class Place {
     List<TwitterName> twitterNames
     // etc...
 
-    static hasMany = [
+    static hasMany = CommunicationLinks.hasMany + [
             addresses:Address, // may be unknown, or separate postalType and streetType addresses
-            phoneNumbers:PhoneNumber,
-            emailAddresses:EmailAddress,
-            instantMessengerAddresses:InstantMessengerAddress,
-            skypeNames:SkypeName,
-            twitterNames:TwitterName,
     ]
 
     static constraints = {
         // Address's belongsTo = Place handles validation, but generating errors one level too high, so
         addresses validator: { it?.every { it?.validate() } }  // work-around to get errors on specific connections
+        CommunicationLinks.constraints(delegate)
     }
 
     static mapping = {
         // addresses handled by belongsTo = Place in Address
-        phoneNumbers cascade:'persist,merge,save-update'
-        emailAddresses cascade:'persist,merge,save-update'
-        instantMessengerAddresses cascade:'persist,merge,save-update'
-        skypeNames cascade:'persist,merge,save-update'
-        twitterNames cascade:'persist,merge,save-update'
+        CommunicationLinks.mapping(delegate)
     }
 }

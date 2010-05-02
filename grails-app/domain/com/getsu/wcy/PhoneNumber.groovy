@@ -11,7 +11,7 @@ class PhoneNumber {
     PhoneNumberType type
 
     static constraints = {
-        number minLength:3
+        number minSize:3
     }
 
     enum PhoneNumberType {

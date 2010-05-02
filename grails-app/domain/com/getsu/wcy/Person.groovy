@@ -34,13 +34,8 @@ class Person {
 
     static transients = ['originalValuesJSON', 'preferredPhone', 'preferredConnection', 'preferredEmail']
 
-    static hasMany = [
+    static hasMany = CommunicationLinks.hasMany + [
             connections:Connection,
-            phoneNumbers:PhoneNumber,
-            emailAddresses:EmailAddress,
-            instantMessengerAddresses:InstantMessengerAddress,
-            skypeNames:SkypeName,
-            twitterNames:TwitterName,
     ]
 
     static constraints = {
@@ -57,18 +52,13 @@ class Person {
         // Connection's belongsTo = Person handles validation, but generating errors one level too high, so
         connections validator: { it?.every { it?.validate() } }  // work-around to get errors on specific connections
 
-        // phoneNumbers validator: { it?.validate() }  // work-around to deepValidate for cascade
-        // ...
+        CommunicationLinks.constraints(delegate)
     }
 
     static mapping = {
         sort name:'asc'
         // connections handled by belongsTo = Person in Connection
-        phoneNumbers cascade:'persist,merge,save-update' // specified because not all PhoneNumber belongsTo Person
-        emailAddresses cascade:'persist,merge,save-update' // specified because not all EmailAddress belongsTo Person
-        instantMessengerAddresses cascade:'persist,merge,save-update' // specified because not all InstantMessengerAddress belongsTo Person
-        skypeNames cascade:'persist,merge,save-update' // specified because not all SkypeNames belongsTo Person
-        twitterNames cascade:'persist,merge,save-update' // specified because not all TwitterNames belongsTo Person
+        CommunicationLinks.mapping(delegate)
     }
 
     // generated property, persisted for GORM sorting by <g:sortableColumn>

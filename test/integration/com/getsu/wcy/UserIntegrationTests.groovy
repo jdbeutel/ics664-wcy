@@ -8,6 +8,7 @@ package com.getsu.wcy
 import grails.test.GrailsUnitTestCase
 import grails.validation.ValidationException
 import com.getsu.wcy.Connection.ConnectionType
+import com.getsu.wcy.PhoneNumber.PhoneNumberType
 
 class UserIntegrationTests extends GrailsUnitTestCase {
 
@@ -83,6 +84,69 @@ class UserIntegrationTests extends GrailsUnitTestCase {
             u.save()
         }
         u.person.connections[0].place.addresses[0].city = 'Honolulu'
+        assert u.validate()
+        u.save()
+    }
+
+    void testValidatePersonalPhone() {
+        User u = User.createSignupInstance('foo@bar.com')
+        u.password = 'my password'
+        assert u.validate()
+        u.person.addToPhoneNumbers(new PhoneNumber(type:PhoneNumberType.MOBILE))
+        assert !u.validate()
+        assert u.person.phoneNumbers[0].errors.allErrors.collect {it.code}.contains('nullable')
+        shouldFail(ValidationException) {
+            u.save()
+        }
+        u.person.phoneNumbers[0].number = 'x'
+        assert !u.validate()
+        assert u.person.phoneNumbers[0].errors.allErrors.collect {it.code}.contains('minSize.notmet')
+        shouldFail(ValidationException) {
+            u.save()
+        }
+        u.person.phoneNumbers[0].number = '1111'
+        assert u.validate()
+        u.save()
+    }
+
+    void testValidateConnectionPhone() {
+        User u = User.createSignupInstance('foo@bar.com')
+        u.password = 'my password'
+        assert u.validate()
+        u.person.connections[0].addToPhoneNumbers(new PhoneNumber(type:PhoneNumberType.MOBILE))
+        assert !u.validate()
+        assert u.person.connections[0].phoneNumbers[0].errors.allErrors.collect {it.code}.contains('nullable')
+        shouldFail(ValidationException) {
+            u.save()
+        }
+        u.person.connections[0].phoneNumbers[0].number = 'x'
+        assert !u.validate()
+        assert u.person.connections[0].phoneNumbers[0].errors.allErrors.collect {it.code}.contains('minSize.notmet')
+        shouldFail(ValidationException) {
+            u.save()
+        }
+        u.person.connections[0].phoneNumbers[0].number = '1111'
+        assert u.validate()
+        u.save()
+    }
+
+    void testValidatePlacePhone() {
+        User u = User.createSignupInstance('foo@bar.com')
+        u.password = 'my password'
+        assert u.validate()
+        u.person.connections[0].place.addToPhoneNumbers(new PhoneNumber(type:PhoneNumberType.MOBILE))
+        assert !u.validate()
+        assert u.person.connections[0].place.phoneNumbers[0].errors.allErrors.collect {it.code}.contains('nullable')
+        shouldFail(ValidationException) {
+            u.save()
+        }
+        u.person.connections[0].place.phoneNumbers[0].number = 'x'
+        assert !u.validate()
+        assert u.person.connections[0].place.phoneNumbers[0].errors.allErrors.collect {it.code}.contains('minSize.notmet')
+        shouldFail(ValidationException) {
+            u.save()
+        }
+        u.person.connections[0].place.phoneNumbers[0].number = '1111'
         assert u.validate()
         u.save()
     }
