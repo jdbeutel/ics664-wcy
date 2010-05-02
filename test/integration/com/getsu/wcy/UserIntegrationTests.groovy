@@ -25,8 +25,25 @@ class UserIntegrationTests extends GrailsUnitTestCase {
         u.person.firstGivenName = '' // looking for the blank error
         assert !u.person.validate()
         assert u.person.errors.allErrors.collect {it.code}.contains('blank')
-        assert u.validate()
-        shouldFail(ValidationException) { // because User.beforeInsert() saves person with failOnError
+        assert !u.validate(deepValidate:true)
+
+        // Config.groovy's grails.gorm.failOnError = true does not work for cascades,
+        // but it does work thanks to User's person validator: { it?.validate() } constraint.
+        shouldFail(ValidationException) {
+            u.save()
+        }
+    }
+
+    void testDeepValidatePerson() {
+        User u = User.createSignupInstance('foo@bar.com')
+        u.password = 'my password'
+        assert u.validate() // defaults to deepValidate:true
+        assert !u.person.errors.allErrors.collect {it.code}.contains('blank')
+        u.person.firstGivenName = '' // looking for the blank error
+        assert !u.validate() // defaults to deepValidate:true
+        assert u.person.errors.allErrors.collect {it.code}.contains('blank')
+        assert !u.person.validate()
+        shouldFail(ValidationException) {
             u.save()
         }
     }

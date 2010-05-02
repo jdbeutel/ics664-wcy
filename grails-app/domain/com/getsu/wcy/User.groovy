@@ -22,10 +22,11 @@ class User {
     static constraints = {
         login blank:false, email:true, unique:true
         password blank:false
+        person validator: { it?.validate() }  // work-around to deepValidate for cascade
     }
 
     static mapping = {
-        person cascade:'persist,merge,save-update'
+        person cascade:'persist,merge,save-update' // specified because not all Person belongsTo User
     }
 
     static transients = ['email']
