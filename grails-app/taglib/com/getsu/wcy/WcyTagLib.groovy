@@ -16,10 +16,12 @@ class WcyTagLib {
 
     private static VALID_TIME_ZONES = TimeZone.availableIDs.toList().grep(~/US\/.*|Pacific\/Honolulu/).collect { String id ->
         TimeZone.getTimeZone(id)
-    }.unique().sort {it.rawOffset}
-    // sometimes this prevents start-up (because the default is missing?)
+    }.sort {it.rawOffset} // do not unique() because it's not consistent with equals()
     static {
         def dtz = TimeZone.default
+        def availIDs = TimeZone.availableIDs.toList()
+        def gotten = TimeZone.getTimeZone('US/Hawaii')
+        assert availIDs.contains(dtz.ID)
         assert VALID_TIME_ZONES.contains(dtz)
     }
 
