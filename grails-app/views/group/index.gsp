@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="body">
-    under construction
+    <img src="${resource(file:'/images/mockup/groups.bmp')}" alt="groups mockup"/>
 </div>
 </body>
 </html>
