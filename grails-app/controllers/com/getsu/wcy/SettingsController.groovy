@@ -76,10 +76,6 @@ class SettingsController {
                 render(view: "edit", model: [settingsForm:sf]) // failure, show errors and try again
                 return
             }
-            if (!sf.validate()) { // constraints check that newPasswordConfirm matches
-                render(view: "edit", model: [settingsForm:sf]) // failure, show errors and try again
-                return
-            }
         }
         if (!sf.validate()) {
             render(view: "edit", model: [settingsForm:sf]) // failure, try again, displaying sf errors
