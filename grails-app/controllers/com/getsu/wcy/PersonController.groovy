@@ -121,7 +121,9 @@ class PersonController {
             }
             // todo: remember photo from previous tries and provide it for display
             // todo: validate file image format and scale down if too big?
-            if (!personInstance.hasErrors() && personInstance.save(flush: true)) {
+
+            // without validate() (just binding), hasErrors() wasn't noticing missing required field familyName?
+            if (personInstance.validate() && personInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'person.label', default: 'Person'), personInstance.id])}"
                 redirect(action: "editMyProfile", id: personInstance.id) // success, but always editing
             }
