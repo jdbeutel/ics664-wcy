@@ -29,9 +29,8 @@ class AuthController {
     def signup = { }
 
     def doSignup = { Person p, SignupForm sf ->
-        // todo: validation of home address with results in p.errors; the validate['foo'] just filters errors by 'foo';
-        // ValidatePersistentMethod and HibernateDomainClassValidator suggest ownership association is needed for deepValidate
-        if (!p.validate() || !p.validate(['connections[0].place.addresses[0]']) || sf.hasErrors()) { // todo: consistent validate & hasErrors?
+        // todo: home address specific errors up in p.errors?
+        if (!p.validate() || !sf.validate()) {
             render(view:'signup', model:[personInstance:p, signupForm:sf]) // try again
             return
         }
