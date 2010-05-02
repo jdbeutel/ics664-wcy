@@ -7,6 +7,7 @@ package com.getsu.wcy
 
 import grails.test.GrailsUnitTestCase
 import grails.validation.ValidationException
+import com.getsu.wcy.Connection.ConnectionType
 
 class UserIntegrationTests extends GrailsUnitTestCase {
 
@@ -46,5 +47,43 @@ class UserIntegrationTests extends GrailsUnitTestCase {
         shouldFail(ValidationException) {
             u.save()
         }
+    }
+
+    void testValidateConnection() {
+        User u = User.createSignupInstance('foo@bar.com')
+        u.password = 'my password'
+        assert u.validate()
+        def connErrors = u.person.connections[0].errors.allErrors
+        assert !connErrors.collect {it.code}.contains('nullable')
+
+        u.person.connections[0].type = null
+        assert !u.validate()
+        connErrors = u.person.connections[0].errors.allErrors
+        assert connErrors.collect {it.code}.contains('nullable')
+        shouldFail(ValidationException) {
+            u.save()
+        }
+        u.person.connections[0].type = ConnectionType.HOME
+        assert u.validate()
+        u.save()
+    }
+
+    void testValidateAddress() {
+        User u = User.createSignupInstance('foo@bar.com')
+        u.password = 'my password'
+        assert u.person.connections[0].place.addresses[0].city == 'during signup'
+        assert u.validate()
+        assert !u.person.connections[0].place.addresses[0].errors.allErrors.collect {it.code}.contains('blank')
+        u.save()
+        u.person.connections[0].place.addresses[0].city = ''
+        assert !u.validate()
+        def addrErrors = u.person.connections[0].place.addresses[0].errors.allErrors
+        assert addrErrors.collect {it.code}.contains('blank')
+        shouldFail(ValidationException) {
+            u.save()
+        }
+        u.person.connections[0].place.addresses[0].city = 'Honolulu'
+        assert u.validate()
+        u.save()
     }
 }

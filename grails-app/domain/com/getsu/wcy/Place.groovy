@@ -11,6 +11,7 @@ package com.getsu.wcy
 class Place {
 
     List<Address> addresses
+
     // communication links for this whole Place (not specific to any Person)
     List<PhoneNumber> phoneNumbers // e.g., a home's land-line, an office's reception desk, etc
     List<EmailAddress> emailAddresses // e.g., an office's support or sales alias
@@ -29,6 +30,8 @@ class Place {
     ]
 
     static constraints = {
+        // Address's belongsTo = Place handles validation, but generating errors one level too high, so
+        addresses validator: { it?.every { it?.validate() } }  // work-around to get errors on specific connections
     }
 
     static mapping = {
