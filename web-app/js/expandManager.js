@@ -14,10 +14,22 @@ var ExpandManager = {
         var thisRow = this.up('tr');
         var nextRow = thisRow.next();
         var divToReveal = nextRow.down('div');
-        thisRow.hide();
         divToReveal.hide();
         nextRow.show();
-        Effect.BlindDown(divToReveal, {duration:0.5});
+        var options = {duration:0.5};
+        if (Prototype.Browser.WebKit) { // for Chrome, at least, to help keep the :hover
+            var frameCount = 0;
+            options.afterUpdate = function() {
+                if (frameCount++ == 3) {
+                    thisRow.hide();
+                }
+            }
+        } else {
+            options.beforeStart = function() {
+                thisRow.hide();
+            }
+        }
+        Effect.BlindDown(divToReveal, options);
         return true; // have the browser also handle this event
     },
     swapToPreviousRow: function(/*event*/) {
