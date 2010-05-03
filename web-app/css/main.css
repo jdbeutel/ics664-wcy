@@ -12,6 +12,11 @@ html * {
     padding-right: 20px;
 }
 
+#searchForm {
+    float: left;
+    margin-top: -6px;
+}
+
 .changed {
     background-color: #ffff99;
 }
@@ -285,6 +290,9 @@ th.desc a {
 }
 .prop .name {
     width: 15%;
+    white-space: nowrap;
+}
+span.name {
     white-space: nowrap;
 }
 .prop .value {

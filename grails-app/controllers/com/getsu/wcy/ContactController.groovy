@@ -20,6 +20,10 @@ class ContactController {
         [personInstanceList: result, personInstanceTotal: result.totalCount]
     }
 
+    def search = {
+        render(view: "index", model: index() + [search:params.search])
+    }
+
     def create = {
         def personInstance = new Person()
         personInstance.properties = params

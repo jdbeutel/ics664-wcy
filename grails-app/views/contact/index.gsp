@@ -18,6 +18,10 @@
 </head>
 <body>
 <div class="nav">
+    <g:form name="searchForm">
+        <g:textField name="search" size="42" value="${search}"/>
+        <span class="menuButton"><g:actionSubmit value="Search"/></span>
+    </g:form>
   <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
 </div>
 <div class="body">
