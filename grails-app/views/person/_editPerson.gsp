@@ -13,7 +13,7 @@
         <a href="#" class="expander ExpandManager swapToUpperPreviousRow">V</a>
         <span class="name">${fieldValue(bean: personInstance, field: "name")}</span>
     </td>
-    <td>
+    <td colspan="3">
         <div>
             <a href="#" class="expander ExpandManager swapToNextDiv">&gt;</a>
             (
@@ -34,11 +34,14 @@
         </div>
     </td>
 </tr>
+
+<g:render template="/person/listConnections" model="['personInstance':personInstance]"/>
+
 <tr class="prop">
     <td valign="top" class="required name">
         <label for="photoUpload"><g:message code="person.photo.label" default="Photo"/></label>
     </td>
-    <td valign="top" class="required value ${hasErrors(bean: personInstance, field: 'photo', 'errors')}">
+    <td colspan="3" valign="top" class="required value ${hasErrors(bean: personInstance, field: 'photo', 'errors')}">
         <g:if test="${personInstance?.photo}">
             <img alt="photo" height="100px" width="133px" class="photo"
                     src="${createLink(controller: 'person', action: 'viewPhoto', id: personInstance?.id)}"/>
@@ -52,7 +55,7 @@
     <td valign="top" class="name">
         <label for="birthDate"><g:message code="person.birthDate.label" default="Birth Date"/></label>
     </td>
-    <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'birthDate', 'errors')}">
+    <td colspan="3" valign="top" class="value ${hasErrors(bean: personInstance, field: 'birthDate', 'errors')}">
         <g:datePicker name="birthDate" precision="day" value="${personInstance?.birthDate}" noSelection="['': '']"/>
     </td>
 </tr>
