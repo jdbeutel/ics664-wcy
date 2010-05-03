@@ -13,11 +13,11 @@
     <title><g:message code="default.edit.label" args="[entityName]"/></title>
     <g:javascript src="changeManager.js"/>
     <script type="text/javascript">
-        $(document).observe('dom:loaded', function() {ExpandManager.init()});
+        $(document).observe('dom:loaded', function() {PasswordExpandManager.init()});
         $(document).observe('dom:loaded', function() {ChangeManager.init($('htmlForm'), $$('input.save')[0], [])});
     </script>
     <script type="text/javascript">
-        var ExpandManager = {
+        var PasswordExpandManager = {
             init: function() {
                 $('changePasswordToggle').show();
                 $('changePasswordWithoutJsSpan').hide();
@@ -28,7 +28,7 @@
                     %{--$($('htmlForm')['timeZone']).focus(); --}%%{-- harmless if accidentally changed --}%
                     $('changePasswordDiv').hide();
                 }
-                ExpandManager.updateChangePasswordToggle();
+                PasswordExpandManager.updateChangePasswordToggle();
             },
             toggleChangePassword: function() {
                 var showNow = !$F($('htmlForm')['changePassword']);
@@ -38,7 +38,7 @@
                 } else {
                     Effect.SlideUp('changePasswordDiv', {duration:0.5});
                 }
-                ExpandManager.updateChangePasswordToggle();
+                PasswordExpandManager.updateChangePasswordToggle();
             },
             updateChangePasswordToggle: function() {
                 if ($F($('htmlForm')['changePassword'])) {
@@ -79,7 +79,7 @@
 
                 <tr>
                     <td colspan="2">
-                        <a href="#" id="changePasswordToggle" class="expander" onclick="ExpandManager.toggleChangePassword()" style="display: none">&gt; Change Password</a>
+                        <a href="#" id="changePasswordToggle" class="expander" onclick="PasswordExpandManager.toggleChangePassword()" style="display: none">&gt; Change Password</a>
                         <span id="changePasswordWithoutJsSpan">
                             <label for="changePassword">Change Password</label>
                             <g:checkBox name="changePassword" value="${settingsForm?.changePassword}"/>

@@ -12,8 +12,10 @@
         <thead>
         <tr>
 
+            <!--th><!--expand button  ></th-->
+
             <!-- sortableColumn must be a field that GORM can sort on -->
-            <g:sortableColumn property="name" title="${message(code: 'person.name.label', default: 'Name')}"/>
+            <g:sortableColumn class="withExpandButton" property="name" title="${message(code: 'person.name.label', default: 'Name')}"/>
 
             <th>Email</th>
 
@@ -25,9 +27,16 @@
         </thead>
         <tbody>
         <g:each in="${personInstanceList}" status="i" var="personInstance">
-            <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+            <tr class="summary ${(i % 2) == 0 ? 'odd' : 'even'}">
 
-                <td>${fieldValue(bean: personInstance, field: "name")}</td>
+                <!--td>
+                    <a href="#" class="expander ExpandManager swapToNextRow">&gt;</a>
+                </td-->
+
+                <td>
+                    <a href="#" class="expander ExpandManager swapToNextRow">&gt;</a>
+                    ${fieldValue(bean: personInstance, field: "name")}
+                </td>
 
                 <td>
                     <g:if test="${personInstance.preferredEmail}">
@@ -55,6 +64,22 @@
                     </g:if>
                 </td>
 
+            </tr>
+            <tr style="display: none" class="detail ${(i % 2) == 0 ? 'odd' : 'even'}">
+                <!--td>
+                    <a href="#" class="expander ExpandManager swapToPreviousRow">V</a>
+                </td-->
+                <td colspan="4">
+                    <div> <!-- Effect.BlindUp/Down requires this double div -->
+                        <div>
+                            <table>
+                                <tbody>
+                                    <g:render template="/person/editPerson" model="['personInstance':personInstance]"/>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </g:each>
         </tbody>

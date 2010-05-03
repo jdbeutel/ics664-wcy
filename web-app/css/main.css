@@ -34,6 +34,14 @@ a.expander:hover {
     color: #666;
 }
 
+.ExpandManager.swapToUpperPreviousRow {
+    margin-left: -5px;
+    margin-top: 0;
+}
+th.withExpandButton {
+    padding-left: 3em;
+}
+
 .requiredLegend {
     text-align: right;
 }
@@ -272,8 +280,10 @@ th.desc a {
 .prop {
     padding: 5px;
 }
+.prop .name label {
+    float: right; /* allows the expand button to stay against the left side */
+}
 .prop .name {
-    text-align: right;
     width: 15%;
     white-space: nowrap;
 }
