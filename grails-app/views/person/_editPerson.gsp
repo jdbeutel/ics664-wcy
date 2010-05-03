@@ -3,71 +3,44 @@
   -
   - Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
   --}%
-<tr class="prop">
-    <td valign="top" class="name">
+<table>
+<tbody>
+<tr>
+    <td>
         <g:hiddenField name="id" value="${personInstance?.id}"/>
         <g:hiddenField name="version" value="${personInstance?.version}"/>
         <g:hiddenField name="originalValuesJSON" value="${personInstance?.originalValuesJSON}"/>
         <a href="#" class="expander ExpandManager swapToUpperPreviousRow">V</a>
-        <label for="preferredName"><g:message code="person.preferredName.label" default="Nickname"/></label>
+        ${fieldValue(bean: personInstance, field: "name")}
     </td>
-    <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'preferredName', 'errors')}">
-        <g:textField name="preferredName" value="${personInstance?.preferredName}"/>
-    </td>
-</tr>
-
-<tr class="prop">
-    <td valign="top" class="name">
-        <label for="honorific"><g:message code="person.honorific.label" default="Honorific (e.g., Mr.)"/></label>
-    </td>
-    <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'honorific', 'errors')}">
-        <g:textField name="honorific" value="${personInstance?.honorific}"/>
-    </td>
-</tr>
-
-<tr class="prop">
-    <td valign="top" class="required name">
-        <label for="firstGivenName"><g:message code="person.firstGivenName.label" default="First Name"/></label>
-    </td>
-    <td valign="top" class="required value ${hasErrors(bean: personInstance, field: 'firstGivenName', 'errors')}">
-        <g:textField name="firstGivenName" value="${personInstance?.firstGivenName}"/> <wcy:required/>
-    </td>
-</tr>
-
-<tr class="prop">
-    <td valign="top" class="name">
-        <label for="middleGivenNames"><g:message code="person.middleGivenNames.label" default="Middle Names"/></label>
-    </td>
-    <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'middleGivenNames', 'errors')}">
-        <g:textField name="middleGivenNames" value="${personInstance?.middleGivenNames}"/>
+    <td>
+        <div>
+            <a href="#" class="expander ExpandManager swapToNextDiv">&gt;</a>
+            (
+            ${personInstance?.honorific}
+            ${personInstance?.firstGivenName}
+            <g:if test="${personInstance?.preferredName}">
+                (${personInstance?.preferredName})
+            </g:if>
+            ${personInstance?.middleGivenNames}
+            ${personInstance?.familyName}${personInstance?.suffix ? ',' : ''}
+            ${personInstance?.suffix}
+            )
+        </div>
+        <div style="display:none">
+            <div>
+                <g:render template="/person/editName" model="['personInstance':personInstance]"/>
+            </div>
+        </div>
     </td>
 </tr>
-
-<tr class="prop">
-    <td valign="top" class="required name">
-        <label for="familyName"><g:message code="person.familyName.label" default="Last Name"/></label>
-    </td>
-    <td valign="top" class="required value ${hasErrors(bean: personInstance, field: 'familyName', 'errors')}">
-        <g:textField name="familyName" value="${personInstance?.familyName}"/> <wcy:required/>
-    </td>
-</tr>
-
-<tr class="prop">
-    <td valign="top" class="name">
-        <label for="suffix"><g:message code="person.suffix.label" default="Suffix (e.g., Jr.)"/></label>
-    </td>
-    <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'suffix', 'errors')}">
-        <g:textField name="suffix" value="${personInstance?.suffix}"/>
-    </td>
-</tr>
-
 <tr class="prop">
     <td valign="top" class="required name">
         <label for="photoUpload"><g:message code="person.photo.label" default="Photo"/></label>
     </td>
     <td valign="top" class="required value ${hasErrors(bean: personInstance, field: 'photo', 'errors')}">
         <g:if test="${personInstance?.photo}">
-            <img alt="photo" width="200px" height="150px" class="photo"
+            <img alt="photo" height="100px" width="133px" class="photo"
                     src="${createLink(controller: 'person', action: 'viewPhoto', id: personInstance?.id)}"/>
             <br/>
         </g:if>
@@ -83,5 +56,6 @@
         <g:datePicker name="birthDate" precision="day" value="${personInstance?.birthDate}" noSelection="['': '']"/>
     </td>
 </tr>
-
+</tbody>
+</table>
 

@@ -9,6 +9,8 @@ var ExpandManager = {
         $$('a.ExpandManager.swapToNextRow').invoke('observe', 'click', ExpandManager.swapToNextRow);
         $$('a.ExpandManager.swapToPreviousRow').invoke('observe', 'click', ExpandManager.swapToPreviousRow);
         $$('a.ExpandManager.swapToUpperPreviousRow').invoke('observe', 'click', ExpandManager.swapToUpperPreviousRow);
+        $$('a.ExpandManager.swapToNextDiv').invoke('observe', 'click', ExpandManager.swapToNextDiv);
+        $$('a.ExpandManager.swapToPreviousDiv').invoke('observe', 'click', ExpandManager.swapToPreviousDiv);
     },
     swapToNextRow: function(/*event*/) {
         var thisRow = this.up('tr');
@@ -29,14 +31,14 @@ var ExpandManager = {
                 thisRow.hide();
             }
         }
-        Effect.BlindDown(divToReveal, options);
+        divToReveal.blindDown(options);
         return true; // have the browser also handle this event
     },
     swapToPreviousRow: function(/*event*/) {
         var thisRow = this.up('tr');
         var divToConceal = thisRow.down('div');
         var previousRow = thisRow.previous();
-        Effect.BlindUp(divToConceal, {duration:0.5,
+        divToConceal.blindUp( {duration:0.5,
             afterFinish:function() {
                 previousRow.show();
                 thisRow.hide();
@@ -48,10 +50,27 @@ var ExpandManager = {
         var thisRow = this.up('tr').up('tr');
         var divToConceal = thisRow.down('div');
         var previousRow = thisRow.previous();
-        Effect.BlindUp(divToConceal, {duration:0.5,
+        divToConceal.blindUp( {duration:0.5,
             afterFinish:function() {
                 previousRow.show();
                 thisRow.hide();
+            }
+        });
+        return true; // have the browser also handle this event
+    },
+    swapToNextDiv: function(/*event*/) {
+        var divToConceal = this.up('div');
+        var nextDiv = divToConceal.next('div');
+        divToConceal.hide();
+        nextDiv.blindDown( {duration:0.5});
+        return true; // have the browser also handle this event
+    },
+    swapToPreviousDiv: function(/*event*/) {
+        var divToConceal = this.up('div').up('div'); // blindUp/Down needs double div
+        var previousDiv = divToConceal.previous('div');
+        divToConceal.blindUp( {duration:0.5,
+            afterFinish:function() {
+                previousDiv.show();
             }
         });
         return true; // have the browser also handle this event

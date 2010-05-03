@@ -29,10 +29,6 @@
         <g:each in="${personInstanceList}" status="i" var="personInstance">
             <tr class="summary ${(i % 2) == 0 ? 'odd' : 'even'}">
 
-                <!--td>
-                    <a href="#" class="expander ExpandManager swapToNextRow">&gt;</a>
-                </td-->
-
                 <td>
                     <a href="#" class="expander ExpandManager swapToNextRow">&gt;</a>
                     ${fieldValue(bean: personInstance, field: "name")}
@@ -72,11 +68,7 @@
                 <td colspan="4">
                     <div> <!-- Effect.BlindUp/Down requires this double div -->
                         <div>
-                            <table>
-                                <tbody>
-                                    <g:render template="/person/editPerson" model="['personInstance':personInstance]"/>
-                                </tbody>
-                            </table>
+                            <g:render template="/person/editPerson" model="['personInstance':personInstance]"/>
                         </div>
                     </div>
                 </td>

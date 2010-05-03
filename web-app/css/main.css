@@ -34,7 +34,7 @@ a.expander:hover {
     color: #666;
 }
 
-.ExpandManager.swapToUpperPreviousRow {
+.ExpandManager.swapToUpperPreviousRow, .ExpandManager.swapToPreviousDiv {
     margin-left: -5px;
     margin-top: 0;
 }
@@ -242,11 +242,10 @@ th.desc a {
     border-collapse: collapse;
 }
 .list > table > thead > tr > th, .list > table > tbody > tr > td {
-/*.list th, .list td {*/
     border-left: 1px solid #ddd;
 }
 .list th:hover, .list tr:hover {
-    background: #b2d1ff;
+    background: #e0edff;
 }
 
 /* PAGINATION */

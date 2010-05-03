@@ -45,7 +45,8 @@ class BootStrap {
         def builder = new WcyDomainBuilder()
         builder.classNameResolver = 'com.getsu.wcy'
         def joe = builder.user(login:'joe.cool@example.com', password:passwordEncoder('password')) {
-            person(firstGivenName:'Joe', middleGivenNames:'B.', familyName:'Cool', photoFileName:'david-n-ben.JPG',
+            person(firstGivenName:'Joe', middleGivenNames:'B.', familyName:'Cool',
+                    preferredName:'J.C.', honorific:'Mr.', photoFileName:'david-n-ben.JPG',
                     photo: getBytes(BootStrap.class.getResourceAsStream('dev/david-n-ben.JPG'))
             ) {
                 connection(type:ConnectionType.HOME) {
@@ -63,7 +64,9 @@ class BootStrap {
         def builder = new WcyDomainBuilder()
         builder.classNameResolver = 'com.getsu.wcy'
         def jane = builder.user(login:'jane.cool@rr.net', password:passwordEncoder('password')) {
-            person(firstGivenName:'Jane', familyName:'Cool', photoFileName:'ben-tea.JPG',
+            person(firstGivenName:'Jane', familyName:'Cool',
+                    middleGivenNames:'Minerva', preferredName:'Jane', honorific:'Ms.', suffix:'Ph.D.',
+                    photoFileName:'ben-tea.JPG',
                     photo: getBytes(BootStrap.class.getResourceAsStream('dev/ben-tea.JPG'))
             ) {
                 connection(type:ConnectionType.HOME) {
@@ -94,7 +97,8 @@ class BootStrap {
         def builder = new WcyDomainBuilder()
         builder.classNameResolver = 'com.getsu.wcy'
         def jane = builder.user(login:'coworker@example.com', password:passwordEncoder('password')) {
-            person(firstGivenName:'Alex', familyName:'McFee', photoFileName:'ben-korea.JPG',
+            person(firstGivenName:'Alex', familyName:'McFee', honorific:'Mr.', middleGivenNames:'Trouble',
+                    photoFileName:'ben-korea.JPG',
                     photo: getBytes(BootStrap.class.getResourceAsStream('dev/ben-korea.JPG'))
             ) {
                 connection(type:ConnectionType.WORK) {
@@ -117,7 +121,7 @@ class BootStrap {
     private static addGranny() { // no User, only Person
         def builder = new WcyDomainBuilder()
         builder.classNameResolver = 'com.getsu.wcy'
-        def granny = builder.person(firstGivenName:'Bertha', familyName:'Cool', photoFileName:'slippers.JPG',
+        def granny = builder.person(honorific:'Mrs.', firstGivenName:'Bertha', familyName:'Cool', photoFileName:'slippers.JPG',
                 photo: getBytes(BootStrap.class.getResourceAsStream('dev/slippers.JPG'))
         ) {
             connection(type:ConnectionType.HOME) {
