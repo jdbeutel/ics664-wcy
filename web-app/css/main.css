@@ -241,7 +241,8 @@ th.desc a {
 .list table {
     border-collapse: collapse;
 }
-.list th, .list td {
+.list > table > thead > tr > th, .list > table > tbody > tr > td {
+/*.list th, .list td {*/
     border-left: 1px solid #ddd;
 }
 .list th:hover, .list tr:hover {
