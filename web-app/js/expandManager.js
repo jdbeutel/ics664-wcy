@@ -11,6 +11,9 @@ var ExpandManager = {
         $$('a.ExpandManager.swapToUpperPreviousRow').invoke('observe', 'click', ExpandManager.swapToUpperPreviousRow);
         $$('a.ExpandManager.swapToNextDiv').invoke('observe', 'click', ExpandManager.swapToNextDiv);
         $$('a.ExpandManager.swapToPreviousDiv').invoke('observe', 'click', ExpandManager.swapToPreviousDiv);
+
+        // for demo
+        $$('input.editPerson').invoke('disable');
     },
     swapToNextRow: function(/*event*/) {
         var thisRow = this.up('tr');

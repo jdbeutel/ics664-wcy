@@ -59,6 +59,21 @@
         <g:datePicker name="birthDate" precision="day" value="${personInstance?.birthDate}" noSelection="['': '']"/>
     </td>
 </tr>
+
+<tr class="prop">
+    <td valign="top" class="name">
+        <label for="add">Add</label>
+    </td>
+    <td colspan="3" valign="top" class="value ${hasErrors(bean: personInstance, field: 'birthDate', 'errors')}">
+        <g:select name="add" from="${['what?', 'email', 'phone', 'address', 'instant messenger', 'skype', 'twitter']}"/>
+    </td>
+</tr>
+
+<tr class="prop">
+    <td colspan="4" valign="top">
+        <span class="button"><g:actionSubmit class="editPerson" action="update" value="Save"/></span>
+    </td>
+</tr>
 </tbody>
 </table>
 

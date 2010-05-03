@@ -312,6 +312,10 @@ span.name {
     padding: 0;
 }
 
+input.editPerson {
+    float: right;
+}
+
 .buttons input {
     float: right;
 /*    background: #fff; */

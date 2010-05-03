@@ -83,5 +83,14 @@
         </td>
     </tr>
 </g:each>
+
+<tr class="prop">
+    <td valign="top" class="name">
+        <label for="add">Add</label>
+    </td>
+    <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'birthDate', 'errors')}">
+        <g:select name="add" from="${['what?', 'email', 'phone', 'address', 'instant messenger', 'skype', 'twitter']}"/>
+    </td>
+</tr>
 </tbody>
 </table>
