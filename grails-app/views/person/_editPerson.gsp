@@ -11,7 +11,7 @@
         <g:hiddenField name="version" value="${personInstance?.version}"/>
         <g:hiddenField name="originalValuesJSON" value="${personInstance?.originalValuesJSON}"/>
         <a href="#" class="expander ExpandManager swapToUpperPreviousRow">V</a>
-        ${fieldValue(bean: personInstance, field: "name")}
+        <span class="name">${fieldValue(bean: personInstance, field: "name")}</span>
     </td>
     <td>
         <div>
