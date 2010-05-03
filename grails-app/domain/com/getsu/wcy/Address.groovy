@@ -17,6 +17,7 @@ class Address {
     boolean postalType
     boolean streetType // for FedEx or Google maps, not a P.O. Box
 
+    static transients = ['type']
     static belongsTo = Place
 
     static constraints = {
@@ -26,5 +27,9 @@ class Address {
         state blank:false
         postalCode nullable:true
         countryCode nullable:true
+    }
+
+    String getType() {
+        streetType && postalType ? 'Street/Postal' : (streetType ? 'Street' : (postalType ? 'Postal' : ''))
     }
 }
