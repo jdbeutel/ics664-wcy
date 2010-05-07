@@ -35,6 +35,27 @@
     </td>
 </tr>
 
+<g:each in="${personInstance?.emailAddresses}" var="emailAddressInstance">
+  <tr class="prop">
+    <td valign="top" class="name">
+      <label for="address">Personal Email</label>
+    </td>
+    <td colspan="3" valign="top" class="value ${hasErrors(bean: emailAddressInstance, field: 'address', 'errors')}">
+      <g:textField name="address" value="${emailAddressInstance?.address}" />
+    </td>
+  </tr>
+</g:each>
+<g:each in="${personInstance?.phoneNumbers}" var="phoneNumberInstance">
+  <tr class="prop">
+    <td valign="top" class="name">
+      <label for="number">Personal ${phoneNumberInstance.type}</label>
+    </td>
+    <td colspan="3" valign="top" class="value ${hasErrors(bean: phoneNumberInstance, field: 'number', 'errors')}">
+      <g:textField name="number" value="${phoneNumberInstance?.number}" />
+    </td>
+  </tr>
+</g:each>
+
 <g:render template="/person/listConnections" model="['personInstance':personInstance]"/>
 
 <tr class="prop">
