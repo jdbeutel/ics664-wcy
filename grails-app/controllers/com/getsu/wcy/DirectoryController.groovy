@@ -14,4 +14,8 @@ class DirectoryController {
         // todo: access controls
         [personInstanceList: Person.list(params), personInstanceTotal: Person.count()]
     }
+
+    def search = {
+        render(view: "index", model: index() + [search:params.search])
+    }
 }
